@@ -1,4 +1,5 @@
 class Track {
+  int id = 0;
   String title = '';
   String link = '';
   String preview = '';
@@ -24,11 +25,13 @@ class Track {
       this.tracklistAlbum,
       this.message,
       this.code,
-      this.type);
+      this.type,
+      this.id);
 
   Track.fromJson(Map<String, dynamic> json)
       : title = json['title'],
         link = json['link'],
+        id = json['id'],
         preview = json['preview'],
         duration = json['duration'],
         cover = json['album']['cover'],
@@ -44,5 +47,10 @@ class Track {
 
   static List<Track> jsonToList(data) {
     return data.map<Track>((map) => Track.fromJson(map)).toList();
+  }
+
+  @override
+  String toString() {
+    return 'track';
   }
 }
