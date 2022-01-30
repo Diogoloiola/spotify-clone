@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_clone/models/podcast.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class PodcastWidget extends StatelessWidget {
   final double width;
   final double height;
+  final int id;
   final int type;
   final String urlImage;
-  final int id;
+  final String title;
 
   const PodcastWidget(
       {Key? key,
@@ -14,13 +16,17 @@ class PodcastWidget extends StatelessWidget {
       required this.height,
       required this.type,
       required this.urlImage,
-      required this.id})
+      required this.id,
+      required this.title})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed('/result_podcast',
+            arguments: Podcast.arguments(title, urlImage, id));
+      },
       child: Container(
           width: width,
           height: height,

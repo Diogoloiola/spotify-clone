@@ -18,11 +18,13 @@ Widget returnCorrectObject(Object object) {
   if (object.toString() == 'podcast') {
     object = object as Podcast;
     return PodcastWidget(
-        height: 100,
-        width: 150,
-        type: 1,
-        urlImage: object.picture,
-        id: object.id);
+      height: 100,
+      width: 150,
+      type: 1,
+      urlImage: object.picture,
+      id: object.id,
+      title: object.title,
+    );
   } else if (object.toString() == 'album') {
     object = object as Album;
     return AlbumWidget(
