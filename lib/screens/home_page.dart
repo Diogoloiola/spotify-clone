@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:spotify_clone/helpers/list_widgets.dart';
 import 'package:spotify_clone/repositories/chart_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 
@@ -63,12 +64,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ListElements(
               title: 'Podcast',
               type: 1,
-              data: data['podcasts'],
+              widgets: getWidgets(data['podcasts']),
             ),
             ListElements(
-              title: 'Podcast',
+              title: 'Albums',
               type: 1,
-              data: data['albums'],
+              widgets: getWidgets(data['albums']),
+            ),
+            ListElements(
+              title: 'Playlists',
+              type: 1,
+              widgets: getWidgets(data['playlists']),
             ),
           ],
         ),
@@ -86,10 +92,10 @@ class _MyHomePageState extends State<MyHomePage> {
 class ListElements extends StatelessWidget {
   final String title;
   final int type;
-  final List<Object>? data;
+  final List<Widget> widgets;
 
   const ListElements(
-      {Key? key, required this.title, this.type = 1, required this.data})
+      {Key? key, required this.title, this.type = 1, required this.widgets})
       : super(key: key);
 
   @override
@@ -113,59 +119,10 @@ class ListElements extends StatelessWidget {
           height: 150,
           child: ListView(
             scrollDirection: Axis.horizontal,
-            children: [
-              ...data!.map<Widget>((info) {
-                var object = info as dynamic;
-                return Element(
-                    height: 100,
-                    width: 150,
-                    type: 1,
-                    pathImage: object.picture,
-                    id: object.id);
-              }).toList()
-            ],
+            children: [...widgets],
           ),
         )
       ]),
     );
-  }
-}
-
-class Element extends StatelessWidget {
-  final double width;
-  final double height;
-  final int type;
-  final String pathImage;
-  final int id;
-
-  const Element(
-      {Key? key,
-      required this.width,
-      required this.height,
-      required this.type,
-      required this.pathImage,
-      required this.id})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-          width: width,
-          height: height,
-          margin: const EdgeInsets.only(
-            right: 20,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(getRadius())),
-            color: Colors.red,
-          ),
-          child: Image.network(pathImage)),
-    );
-  }
-
-  double getRadius() {
-    return type == 1 ? 10 : 80;
   }
 }
