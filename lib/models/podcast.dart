@@ -3,10 +3,10 @@ class Podcast {
   String title = '';
   String description = '';
   String picture = '';
-  String picture_small = '';
-  String picture_medium = '';
-  String picture_big = '';
-  String picture_xl = '';
+  String pictureSmall = '';
+  String pictureMedium = '';
+  String pictureBig = '';
+  String pictureXl = '';
   String type = '';
   String message = '';
   int code = 0;
@@ -15,10 +15,10 @@ class Podcast {
       this.id,
       this.title,
       this.picture,
-      this.picture_small,
-      this.picture_medium,
-      this.picture_big,
-      this.picture_xl,
+      this.pictureSmall,
+      this.pictureMedium,
+      this.pictureBig,
+      this.pictureXl,
       this.type,
       this.code,
       this.message);
@@ -28,10 +28,10 @@ class Podcast {
         title = json['title'],
         picture = json['picture'],
         description = json['description'],
-        picture_small = json['picture_small'],
-        picture_medium = json['picture_medium'],
-        picture_big = json['picture_big'],
-        picture_xl = json['picture_xl'],
+        pictureSmall = json['picture_small'],
+        pictureMedium = json['picture_medium'],
+        pictureBig = json['picture_big'],
+        pictureXl = json['picture_xl'],
         type = json['type'];
 
   Podcast.jsonError(Map<String, dynamic> json)

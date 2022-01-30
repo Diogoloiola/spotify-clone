@@ -34,7 +34,7 @@ class Playlist {
 
   Playlist.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        description = json['description'] == null ? '' : json['description'],
+        description = json['description'] ?? '',
         picture = json['picture'],
         pictureSmall = json['picture_small'],
         pictureMedium = json['picture_medium'],
