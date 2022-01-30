@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_clone/theme/colors.dart';
 
 class PlayListWidget extends StatelessWidget {
   final double width;
@@ -28,7 +29,7 @@ class PlayListWidget extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(getRadius())),
-            color: Colors.red,
+            color: ColorPalette.dart,
           ),
           child: Image.network(urlImage)),
     );
