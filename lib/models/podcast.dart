@@ -39,6 +39,8 @@ class Podcast {
         message = json['message'],
         code = json['code'];
 
+  Podcast.arguments(this.title, this.pictureMedium, this.id);
+
   static List<Podcast> jsonToList(data) {
     return data.map<Podcast>((map) => Podcast.fromJson(map)).toList();
   }
