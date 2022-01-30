@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.all(10),
         color: Colors.black,
-        child: Column(
+        child: ListView(
           children: [
             ListElements(
               title: 'Podcast',
