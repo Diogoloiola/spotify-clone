@@ -14,9 +14,14 @@ class _MyHomePageState extends State<MyHomePage> {
   late Map<String, List<Object>> data;
 
   @override
+  void initState() {
+    super.initState();
+    getAllData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     getAllData();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Boa noite'),
@@ -60,17 +65,21 @@ class _MyHomePageState extends State<MyHomePage> {
               type: 1,
               data: data['podcasts'],
             ),
+            ListElements(
+              title: 'Podcast',
+              type: 1,
+              data: data['albums'],
+            ),
           ],
         ),
       ),
     );
   }
 
-  void getAllData() {
-    setState(() {
-      Resource client = Resource('https://api.deezer.com/', {});
-      ChartRepositorie(client.dio).all().then((value) => {data = value});
-    });
+  void getAllData() async {
+    Resource client = Resource('https://api.deezer.com/', {});
+    data = await ChartRepositorie(client.dio).all();
+    setState(() {});
   }
 }
 
@@ -140,17 +149,20 @@ class Element extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: width,
-        height: height,
-        margin: const EdgeInsets.only(
-          right: 20,
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(getRadius())),
-          color: Colors.red,
-        ),
-        child: Image.network(pathImage));
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+          width: width,
+          height: height,
+          margin: const EdgeInsets.only(
+            right: 20,
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(getRadius())),
+            color: Colors.red,
+          ),
+          child: Image.network(pathImage)),
+    );
   }
 
   double getRadius() {
