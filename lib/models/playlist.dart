@@ -58,4 +58,9 @@ class Playlist {
   static List<Playlist> jsonToList(data) {
     return data.map<Playlist>((map) => Playlist.fromJson(map)).toList();
   }
+
+  @override
+  String toString() {
+    return 'playlist';
+  }
 }

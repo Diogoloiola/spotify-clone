@@ -42,4 +42,9 @@ class Podcast {
   static List<Podcast> jsonToList(data) {
     return data.map<Podcast>((map) => Podcast.fromJson(map)).toList();
   }
+
+  @override
+  String toString() {
+    return 'podcast';
+  }
 }

@@ -31,9 +31,9 @@ class Album {
         title = json['title'],
         link = json['link'],
         cover = json['cover'],
-        coverSmall = json['link'],
-        coverMedium = json['link'],
-        coverXl = json['link'],
+        coverSmall = json['cover_small'],
+        coverMedium = json['cover_medium'],
+        coverXl = json['cover_xl'],
         tracklist = json['tracklist'];
 
   Album.jsonError(Map<String, dynamic> json)
@@ -43,5 +43,10 @@ class Album {
 
   static List<Album> jsonToList(data) {
     return data.map<Album>((map) => Album.fromJson(map)).toList();
+  }
+
+  @override
+  String toString() {
+    return 'album';
   }
 }
