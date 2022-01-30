@@ -76,6 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
               type: 1,
               widgets: getWidgets(data['playlists']),
             ),
+            ListElements(
+              title: 'Tracks',
+              type: 1,
+              widgets: getWidgets(data['tracks']),
+            ),
           ],
         ),
       ),
