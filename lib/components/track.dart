@@ -28,15 +28,15 @@ class TrackWidget extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(getRadius())),
-            color: Colors.red,
           ),
           // child: Image.network(urlImage)),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(120),
             child: Image.network(
               urlImage,
-              height: 150.0,
-              width: 100.0,
+              height: 10,
+              width: 10,
+              fit: BoxFit.fill,
             ),
           )),
     );
