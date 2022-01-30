@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-class MyCard extends StatelessWidget {
+class AlbumWidget extends StatelessWidget {
   final double width;
   final double height;
   final int type;
-  final String pathImage;
+  final String urlImage;
   final int id;
 
-  const MyCard(
+  const AlbumWidget(
       {Key? key,
       required this.width,
       required this.height,
       required this.type,
-      required this.pathImage,
+      required this.urlImage,
       required this.id})
       : super(key: key);
 
@@ -30,7 +30,7 @@ class MyCard extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(getRadius())),
             color: Colors.red,
           ),
-          child: Image.network(pathImage)),
+          child: Image.network(urlImage)),
     );
   }
 

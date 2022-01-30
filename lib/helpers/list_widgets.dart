@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
-import 'package:spotify_clone/components/card.dart';
+import 'package:spotify_clone/components/album.dart';
+import 'package:spotify_clone/components/playlist.dart';
+import 'package:spotify_clone/components/podcast.dart';
 import 'package:spotify_clone/models/album.dart';
 import 'package:spotify_clone/models/playlist.dart';
 import 'package:spotify_clone/models/podcast.dart';
@@ -13,27 +15,27 @@ List<Widget> getWidgets(dynamic objects) {
 Widget returnCorrectObject(Object object) {
   if (object.toString() == 'podcast') {
     object = object as Podcast;
-    return MyCard(
+    return PodcastWidget(
         height: 100,
         width: 150,
         type: 1,
-        pathImage: object.picture,
+        urlImage: object.picture,
         id: object.id);
   } else if (object.toString() == 'album') {
     object = object as Album;
-    return MyCard(
+    return AlbumWidget(
         height: 100,
         width: 150,
         type: 1,
-        pathImage: object.coverMedium,
+        urlImage: object.coverMedium,
         id: object.id);
   } else if (object.toString() == 'playlist') {
     object = object as Playlist;
-    return MyCard(
+    return PlayListWidget(
         height: 100,
         width: 150,
         type: 1,
-        pathImage: object.pictureMedium,
+        urlImage: object.pictureMedium,
         id: object.id);
   }
   return Container();
