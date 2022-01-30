@@ -12,6 +12,7 @@ class Playlist {
   String type = '';
   int nbTracks = 0;
   String message = '';
+  String tracklist = '';
   int code = 0;
   late List<Track> tracks;
 
@@ -28,11 +29,12 @@ class Playlist {
       this.message,
       this.nbTracks,
       this.title,
-      this.tracks);
+      this.tracks,
+      this.tracklist);
 
   Playlist.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        description = json['description'],
+        description = json['description'] == null ? '' : json['description'],
         picture = json['picture'],
         pictureSmall = json['picture_small'],
         pictureMedium = json['picture_medium'],
@@ -41,12 +43,19 @@ class Playlist {
         type = json['type'],
         title = json['title'],
         nbTracks = json['nb_tracks'],
-        tracks = json['tracks']['data']
-            .map<Track>((map) => Track.fromJson(map))
-            .toList();
+        tracklist = json['tracklist'],
+        tracks = json['tracks'] == null
+            ? []
+            : json['tracks']['data']
+                .map<Track>((map) => Track.fromJson(map))
+                .toList();
 
   Playlist.jsonError(Map<String, dynamic> json)
       : type = json['type'],
         message = json['message'],
         code = json['code'];
+
+  static List<Playlist> jsonToList(data) {
+    return data.map<Playlist>((map) => Playlist.fromJson(map)).toList();
+  }
 }

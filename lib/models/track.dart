@@ -41,4 +41,8 @@ class Track {
       : code = json['code'],
         message = json['message'],
         type = json['type'];
+
+  static List<Track> jsonToList(data) {
+    return data.map<Track>((map) => Track.fromJson(map)).toList();
+  }
 }

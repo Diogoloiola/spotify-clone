@@ -1,23 +1,45 @@
 class Podcast {
-  final int id;
-  final String name;
-  final String picture;
-  final String pictureSmall;
-  final String pictureMedium;
-  final String pictureBig;
-  final String pictureXl;
-  final String type;
+  int id = 0;
+  String title = '';
+  String description = '';
+  String picture = '';
+  String picture_small = '';
+  String picture_medium = '';
+  String picture_big = '';
+  String picture_xl = '';
+  String type = '';
+  String message = '';
+  int code = 0;
 
-  Podcast(this.id, this.name, this.picture, this.pictureSmall,
-      this.pictureMedium, this.pictureBig, this.pictureXl, this.type);
+  Podcast(
+      this.id,
+      this.title,
+      this.picture,
+      this.picture_small,
+      this.picture_medium,
+      this.picture_big,
+      this.picture_xl,
+      this.type,
+      this.code,
+      this.message);
 
   Podcast.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        name = json['name'],
+        title = json['title'],
         picture = json['picture'],
-        pictureSmall = json['picture_small'],
-        pictureMedium = json['picture_medium'],
-        pictureBig = json['picture_big'],
-        pictureXl = json['picture_xl'],
+        description = json['description'],
+        picture_small = json['picture_small'],
+        picture_medium = json['picture_medium'],
+        picture_big = json['picture_big'],
+        picture_xl = json['picture_xl'],
         type = json['type'];
+
+  Podcast.jsonError(Map<String, dynamic> json)
+      : type = json['type'],
+        message = json['message'],
+        code = json['code'];
+
+  static List<Podcast> jsonToList(data) {
+    return data.map<Podcast>((map) => Podcast.fromJson(map)).toList();
+  }
 }
