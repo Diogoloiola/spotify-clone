@@ -12,17 +12,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Map<String, List<Object>> data;
-
-  @override
-  void initState() {
-    super.initState();
-    getAllData();
-  }
-
   @override
   Widget build(BuildContext context) {
-    getAllData();
+    Resource client = Resource('https://api.deezer.com/', {});
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Boa noite'),
@@ -55,42 +48,46 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        padding: const EdgeInsets.all(10),
-        color: Colors.black,
-        child: ListView(
-          children: [
-            ListElements(
-              title: 'Podcast',
-              type: 1,
-              widgets: getWidgets(data['podcasts']),
-            ),
-            ListElements(
-              title: 'Albums',
-              type: 1,
-              widgets: getWidgets(data['albums']),
-            ),
-            ListElements(
-              title: 'Playlists',
-              type: 1,
-              widgets: getWidgets(data['playlists']),
-            ),
-            ListElements(
-              title: 'Tracks',
-              type: 1,
-              widgets: getWidgets(data['tracks']),
-            ),
-          ],
-        ),
-      ),
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          padding: const EdgeInsets.all(10),
+          color: Colors.black,
+          child: FutureBuilder(
+            future: ChartRepositorie(client.dio).all(),
+            builder: (BuildContext context,
+                AsyncSnapshot<Map<String, List<Object>>> snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data != null) {
+                  return ListView(
+                    children: [
+                      ListElements(
+                        title: 'Podcast',
+                        type: 1,
+                        widgets: getWidgets(snapshot.data!['podcasts']),
+                      ),
+                      ListElements(
+                        title: 'Albums',
+                        type: 1,
+                        widgets: getWidgets(snapshot.data!['albums']),
+                      ),
+                      ListElements(
+                        title: 'Playlists',
+                        type: 1,
+                        widgets: getWidgets(snapshot.data!['playlists']),
+                      ),
+                      ListElements(
+                        title: 'Tracks',
+                        type: 1,
+                        widgets: getWidgets(snapshot.data!['tracks']),
+                      ),
+                    ],
+                  );
+                }
+              }
+              return const CircularProgressIndicator();
+            },
+          )),
     );
-  }
-
-  void getAllData() async {
-    Resource client = Resource('https://api.deezer.com/', {});
-    data = await ChartRepositorie(client.dio).all();
-    setState(() {});
   }
 }
 
