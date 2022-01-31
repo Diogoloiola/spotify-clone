@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:spotify_clone/components/header.dart';
 import 'package:spotify_clone/models/episode.dart';
 import 'package:spotify_clone/models/podcast.dart';
 import 'package:spotify_clone/repositories/podcast_repositorie.dart';
 import 'package:spotify_clone/repositories/resource.dart';
-import 'package:spotify_clone/theme/colors.dart';
 
 class ResultPodcast extends StatelessWidget {
   const ResultPodcast({Key? key}) : super(key: key);
@@ -35,6 +35,7 @@ class ResultPodcast extends StatelessWidget {
             Header(
               title: args.title,
               urlImage: args.pictureMedium,
+              titleButton: 'Escute',
             ),
             FutureBuilder(
               future: PodcastRepositorie(client.dio).find(args.id),
@@ -67,54 +68,6 @@ class ResultPodcast extends StatelessWidget {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class Header extends StatelessWidget {
-  final String title;
-  final String urlImage;
-
-  const Header({Key? key, required this.title, required this.urlImage})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              urlImage,
-              fit: BoxFit.fill,
-              width: 140,
-              height: 140,
-            ),
-          ),
-          Text(
-            title,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),
-          ),
-          Container(
-            width: 200,
-            height: 50,
-            margin: const EdgeInsets.only(top: 10),
-            decoration: const BoxDecoration(
-              color: ColorPalette.yellow,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
-            ),
-            child: const Center(
-                child: Text(
-              'Escute',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            )),
-          )
-        ],
       ),
     );
   }
