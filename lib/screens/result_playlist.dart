@@ -85,26 +85,31 @@ class EpisodeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Image.network(
-              urlImage,
-              fit: BoxFit.fill,
-              width: 40,
-              height: 40,
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: 20),
-            child: Text(
-              title,
-              // textDirection: TextDirection.rtl,
-              style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.bold),
-            ),
+          Row(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  urlImage,
+                  fit: BoxFit.fill,
+                  width: 40,
+                  height: 40,
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 20),
+                child: Text(
+                  title,
+                  // textDirection: TextDirection.rtl,
+                  style: const TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
           ),
           const Icon(
             Icons.play_circle,
