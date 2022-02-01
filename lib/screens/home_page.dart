@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spotify_clone/helpers/list_widgets.dart';
 import 'package:spotify_clone/repositories/chart_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
+import 'package:spotify_clone/theme/colors.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Boa noite'),
-        backgroundColor: Colors.black,
+        backgroundColor: ColorPalette.darkItermediare,
         actions: const [
           IconButton(
             icon: FaIcon(
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.all(10),
-          color: Colors.black,
+          color: ColorPalette.darkItermediare,
           child: FutureBuilder(
             future: ChartRepositorie(client.dio).all(),
             builder: (BuildContext context,

@@ -5,6 +5,7 @@ import 'package:spotify_clone/models/playlist.dart';
 import 'package:spotify_clone/models/track.dart';
 import 'package:spotify_clone/repositories/playlist_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
+import 'package:spotify_clone/theme/colors.dart';
 
 class ResultPlayList extends StatelessWidget {
   const ResultPlayList({Key? key}) : super(key: key);
@@ -15,7 +16,8 @@ class ResultPlayList extends StatelessWidget {
     final args = ModalRoute.of(context)!.settings.arguments as Playlist;
 
     return Scaffold(
-      appBar: AppBar(backgroundColor: Colors.black, actions: const [
+      appBar:
+          AppBar(backgroundColor: ColorPalette.darkSecondary, actions: const [
         IconButton(
           icon: FaIcon(
             FontAwesomeIcons.bell,
@@ -28,7 +30,7 @@ class ResultPlayList extends StatelessWidget {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Colors.black,
+        color: ColorPalette.darkItermediare,
         child: Column(
           children: [
             Header(

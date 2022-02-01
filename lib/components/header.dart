@@ -15,38 +15,43 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            urlImage,
-            fit: BoxFit.fill,
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      color: ColorPalette.darkSecondary,
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Image.network(
+              urlImage,
+              fit: BoxFit.fill,
+              width: 150,
+              height: 150,
+            ),
+          ),
+          Text(
+            title,
+            style: const TextStyle(
+                color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),
+          ),
+          Container(
             width: 200,
-            height: 200,
-          ),
-        ),
-        Text(
-          title,
-          style: const TextStyle(
-              color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),
-        ),
-        Container(
-          width: 200,
-          height: 50,
-          margin: const EdgeInsets.only(top: 10),
-          decoration: const BoxDecoration(
-            color: ColorPalette.yellow,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
-          ),
-          child: Center(
-              child: Text(
-            titleButton,
-            style: const TextStyle(color: Colors.white, fontSize: 20),
-          )),
-        )
-      ],
+            height: 50,
+            margin: const EdgeInsets.only(top: 10),
+            decoration: const BoxDecoration(
+              color: ColorPalette.redPrimary,
+              borderRadius: BorderRadius.all(Radius.circular(50)),
+            ),
+            child: Center(
+                child: Text(
+              titleButton,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            )),
+          )
+        ],
+      ),
     );
   }
 }
