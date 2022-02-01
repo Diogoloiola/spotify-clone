@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spotify_clone/components/header.dart';
 import 'package:spotify_clone/models/playlist.dart';
@@ -43,6 +44,7 @@ class ResultPlayList extends StatelessWidget {
               builder:
                   (BuildContext context, AsyncSnapshot<List<Track>> snapshot) {
                 if (snapshot.hasData) {
+                  EasyLoading.dismiss();
                   return Container(
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.5,
@@ -60,7 +62,8 @@ class ResultPlayList extends StatelessWidget {
                     ),
                   );
                 }
-                return Container();
+                EasyLoading.show();
+                return const SizedBox();
               },
             )
           ],

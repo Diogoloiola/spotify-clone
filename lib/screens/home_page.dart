@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spotify_clone/helpers/list_widgets.dart';
 import 'package:spotify_clone/repositories/chart_repositorire.dart';
@@ -59,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 AsyncSnapshot<Map<String, List<Object>>> snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data != null) {
+                  EasyLoading.dismiss();
                   return ListView(
                     children: [
                       ListElements(
@@ -85,7 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   );
                 }
               }
-              return const CircularProgressIndicator();
+              EasyLoading.show();
+              return const SizedBox();
             },
           )),
     );

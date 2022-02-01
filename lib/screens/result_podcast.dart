@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:spotify_clone/components/header.dart';
@@ -45,6 +46,7 @@ class ResultPodcast extends StatelessWidget {
                   AsyncSnapshot<List<Episode>> snapshot) {
                 if (snapshot.hasData) {
                   if (snapshot.data != null) {
+                    EasyLoading.dismiss();
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.5,
@@ -65,7 +67,8 @@ class ResultPodcast extends StatelessWidget {
                   }
                 }
 
-                return Container();
+                EasyLoading.show();
+                return const SizedBox();
               },
             )
           ],

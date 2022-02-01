@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spotify_clone/screens/result_album.dart';
 import 'package:spotify_clone/screens/result_playlist.dart';
 import 'package:spotify_clone/screens/result_podcast.dart';
-
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'home_page.dart';
 
 class MyApp extends StatelessWidget {
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/result_playlist': (context) => const ResultPlayList(),
         '/result_album': (context) => const RescultAlbum(),
       },
+      builder: EasyLoading.init(),
     );
   }
 }
