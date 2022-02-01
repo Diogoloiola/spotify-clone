@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spotify_clone/helpers/list_widgets.dart';
+import 'package:spotify_clone/helpers/message.dart';
 import 'package:spotify_clone/repositories/chart_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';
@@ -20,7 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Boa noite'),
+        title: Text(createMessage()),
         backgroundColor: ColorPalette.darkItermediare,
         actions: const [
           IconButton(
