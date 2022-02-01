@@ -33,15 +33,15 @@ class Track {
   Track.fromJson(Map<String, dynamic> json)
       : title = json['title'],
         link = json['link'],
-        id = json['id'],
         preview = json['preview'],
         duration = json['duration'],
-        cover = json['album']['cover'],
-        coverSmall = json['album']['cover_small'],
-        coverMedium = json['album']['cover_medium'],
-        coverBig = json['album']['cover_big'],
-        tracklistAlbum = json['album']['tracklist'],
-        titleShort = json['title_short'];
+        cover = json['album'] != null ? json['album']['cover'] : '',
+        coverSmall = json['album'] != null ? json['album']['cover_small'] : '',
+        coverMedium =
+            json['album'] != null ? json['album']['cover_medium'] : '',
+        coverBig = json['album'] != null ? json['album']['cover_big'] : '',
+        tracklistAlbum =
+            json['album'] != null ? json['album']['tracklist'] : '';
 
   Track.jsonError(Map<String, dynamic> json)
       : code = json['code'],
