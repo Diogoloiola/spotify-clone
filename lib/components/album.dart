@@ -22,6 +22,8 @@ class AlbumWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(title);
+    print(title.length);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed('/result_album',
@@ -47,7 +49,7 @@ class AlbumWidget extends StatelessWidget {
               title.length > 20 ? title.substring(0, 16) : title,
               style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.bold),
             )
           ],

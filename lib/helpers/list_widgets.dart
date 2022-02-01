@@ -42,7 +42,7 @@ Widget returnCorrectObject(Object object) {
         width: 150,
         type: 1,
         coverMedium: object.pictureMedium,
-        title: object.description,
+        title: object.title,
         id: object.id);
   } else if (object.toString() == 'track') {
     object = object as Track;

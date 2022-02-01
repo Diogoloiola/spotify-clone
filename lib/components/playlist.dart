@@ -44,10 +44,10 @@ class PlayListWidget extends StatelessWidget {
                     height: 150,
                   )),
               Text(
-                title,
+                title.length >= 20 ? title.substring(0, 18) : title,
                 style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold),
               )
             ],
