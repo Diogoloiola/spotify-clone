@@ -5,8 +5,8 @@ import 'package:spotify_clone/helpers/chose_message.dart';
 import 'package:spotify_clone/helpers/list_widgets.dart';
 import 'package:spotify_clone/repositories/chart_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
-import 'package:spotify_clone/screens/search.dart';
 import 'package:spotify_clone/theme/colors.dart';
+import 'package:spotify_clone/screens/search.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
