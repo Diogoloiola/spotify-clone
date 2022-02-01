@@ -39,7 +39,8 @@ Widget returnCorrectObject(Object object) {
         height: 100,
         width: 150,
         type: 1,
-        urlImage: object.pictureMedium,
+        coverMedium: object.pictureMedium,
+        title: object.description,
         id: object.id);
   } else if (object.toString() == 'track') {
     object = object as Track;

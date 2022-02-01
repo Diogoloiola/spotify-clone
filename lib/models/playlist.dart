@@ -50,6 +50,8 @@ class Playlist {
                 .map<Track>((map) => Track.fromJson(map))
                 .toList();
 
+  Playlist.arguments(this.title, this.pictureMedium, this.id);
+
   Playlist.jsonError(Map<String, dynamic> json)
       : type = json['type'],
         message = json['message'],

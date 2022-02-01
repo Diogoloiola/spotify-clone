@@ -1,6 +1,7 @@
 class Track {
   int id = 0;
   String title = '';
+  String titleShort = '';
   String link = '';
   String preview = '';
   int duration = 0;
@@ -26,7 +27,8 @@ class Track {
       this.message,
       this.code,
       this.type,
-      this.id);
+      this.id,
+      this.titleShort);
 
   Track.fromJson(Map<String, dynamic> json)
       : title = json['title'],
@@ -38,7 +40,8 @@ class Track {
         coverSmall = json['album']['cover_small'],
         coverMedium = json['album']['cover_medium'],
         coverBig = json['album']['cover_big'],
-        tracklistAlbum = json['album']['tracklist'];
+        tracklistAlbum = json['album']['tracklist'],
+        titleShort = json['title_short'];
 
   Track.jsonError(Map<String, dynamic> json)
       : code = json['code'],
