@@ -5,6 +5,7 @@ import 'package:spotify_clone/helpers/list_widgets.dart';
 import 'package:spotify_clone/helpers/message.dart';
 import 'package:spotify_clone/repositories/chart_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
+import 'package:spotify_clone/screens/search.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -15,9 +16,58 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Resource client = Resource('https://api.deezer.com/', {});
+
+    List<Widget> _widgetOptions = [
+      FutureBuilder(
+        future: ChartRepositorie(client.dio).all(),
+        builder: (BuildContext context,
+            AsyncSnapshot<Map<String, List<Object>>> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data != null) {
+              EasyLoading.dismiss();
+              return ListView(
+                children: [
+                  ListElements(
+                    title: 'Podcast',
+                    type: 1,
+                    widgets: getWidgets(snapshot.data!['podcasts']),
+                  ),
+                  ListElements(
+                    title: 'Albums',
+                    type: 1,
+                    widgets: getWidgets(snapshot.data!['albums']),
+                  ),
+                  ListElements(
+                    title: 'Playlists',
+                    type: 1,
+                    widgets: getWidgets(snapshot.data!['playlists']),
+                  ),
+                  ListElements(
+                    title: 'Tracks',
+                    type: 1,
+                    widgets: getWidgets(snapshot.data!['tracks']),
+                  ),
+                ],
+              );
+            }
+          }
+          EasyLoading.show();
+          return const SizedBox();
+        },
+      ),
+      const Search(),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -55,43 +105,55 @@ class _MyHomePageState extends State<MyHomePage> {
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.all(10),
           color: ColorPalette.darkItermediare,
-          child: FutureBuilder(
-            future: ChartRepositorie(client.dio).all(),
-            builder: (BuildContext context,
-                AsyncSnapshot<Map<String, List<Object>>> snapshot) {
-              if (snapshot.hasData) {
-                if (snapshot.data != null) {
-                  EasyLoading.dismiss();
-                  return ListView(
-                    children: [
-                      ListElements(
-                        title: 'Podcast',
-                        type: 1,
-                        widgets: getWidgets(snapshot.data!['podcasts']),
-                      ),
-                      ListElements(
-                        title: 'Albums',
-                        type: 1,
-                        widgets: getWidgets(snapshot.data!['albums']),
-                      ),
-                      ListElements(
-                        title: 'Playlists',
-                        type: 1,
-                        widgets: getWidgets(snapshot.data!['playlists']),
-                      ),
-                      ListElements(
-                        title: 'Tracks',
-                        type: 1,
-                        widgets: getWidgets(snapshot.data!['tracks']),
-                      ),
-                    ],
-                  );
-                }
-              }
-              EasyLoading.show();
-              return const SizedBox();
-            },
-          )),
+          child: _widgetOptions[_selectedIndex]),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          height: 50.0,
+          width: double.maxFinite,
+          decoration: const BoxDecoration(
+            color: ColorPalette.darkItermediare,
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  GestureDetector(
+                      onTap: () => _onItemTapped(0),
+                      child: Column(
+                        children: const [
+                          Icon(
+                            Icons.home,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            'Home',
+                            style: TextStyle(color: Colors.white),
+                          )
+                        ],
+                      )),
+                  GestureDetector(
+                    onTap: () => _onItemTapped(1),
+                    child: Column(
+                      children: const [
+                        Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        ),
+                        Text(
+                          'Pesquisar',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
