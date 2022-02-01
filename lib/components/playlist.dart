@@ -22,22 +22,37 @@ class PlayListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed('/result_playlist',
-            arguments: Playlist.arguments(title, coverMedium, id));
-      },
-      child: Container(
+        onTap: () {
+          Navigator.of(context).pushNamed('/result_playlist',
+              arguments: Playlist.arguments(title, coverMedium, id));
+        },
+        child: Container(
           width: width,
           height: height,
-          margin: const EdgeInsets.only(
-            right: 20,
+          margin: const EdgeInsets.only(right: 10),
+          child: Column(
+            children: [
+              Container(
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(getRadius())),
+                    color: ColorPalette.dart,
+                  ),
+                  child: Image.network(
+                    coverMedium,
+                    width: 150,
+                    height: 150,
+                  )),
+              Text(
+                title,
+                style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
+              )
+            ],
           ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(getRadius())),
-            color: ColorPalette.dart,
-          ),
-          child: Image.network(coverMedium)),
-    );
+        ));
   }
 
   double getRadius() {

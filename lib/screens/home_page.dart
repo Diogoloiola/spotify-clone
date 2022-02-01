@@ -118,7 +118,7 @@ class ListElements extends StatelessWidget {
         ),
         SizedBox(
           width: MediaQuery.of(context).size.width,
-          height: 150,
+          height: 170,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [...widgets],

@@ -37,6 +37,7 @@ class TrackWidget extends StatelessWidget {
               height: 10,
               width: 10,
               fit: BoxFit.fill,
+              scale: 9,
             ),
           )),
     );

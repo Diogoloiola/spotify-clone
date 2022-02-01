@@ -28,16 +28,31 @@ class AlbumWidget extends StatelessWidget {
             arguments: Album.arguments(title, urlImage, id));
       },
       child: Container(
-          width: width,
-          height: height,
-          margin: const EdgeInsets.only(
-            right: 20,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(getRadius())),
-            color: ColorPalette.dart,
-          ),
-          child: Image.network(urlImage)),
+        width: width,
+        height: height,
+        margin: const EdgeInsets.only(right: 10),
+        child: Column(
+          children: [
+            Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(getRadius())),
+                  color: ColorPalette.dart,
+                ),
+                child: Image.network(
+                  urlImage,
+                  width: 150,
+                  height: 150,
+                )),
+            Text(
+              title,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            )
+          ],
+        ),
+      ),
     );
   }
 
