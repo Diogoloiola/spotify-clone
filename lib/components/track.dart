@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_clone/theme/colors.dart';
 
 class TrackWidget extends StatelessWidget {
   final double width;
@@ -30,15 +31,24 @@ class TrackWidget extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(getRadius())),
           ),
           // child: Image.network(urlImage)),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(120),
-            child: Image.network(
-              urlImage,
-              height: 10,
-              width: 10,
-              fit: BoxFit.fill,
-              scale: 9,
-            ),
+          child: Column(
+            children: [
+              Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(80)),
+                    color: ColorPalette.dart,
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(120),
+                    child: Image.network(
+                      urlImage,
+                      height: 140,
+                      width: 140,
+                      fit: BoxFit.fill,
+                      scale: 1,
+                    ),
+                  )),
+            ],
           )),
     );
   }
