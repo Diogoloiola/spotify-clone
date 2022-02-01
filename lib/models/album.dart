@@ -41,6 +41,8 @@ class Album {
         message = json['message'],
         code = json['code'];
 
+  Album.arguments(this.title, this.coverMedium, this.id);
+
   static List<Album> jsonToList(data) {
     return data.map<Album>((map) => Album.fromJson(map)).toList();
   }

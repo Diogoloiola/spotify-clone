@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_clone/models/album.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class AlbumWidget extends StatelessWidget {
@@ -7,6 +8,7 @@ class AlbumWidget extends StatelessWidget {
   final int type;
   final String urlImage;
   final int id;
+  final String title;
 
   const AlbumWidget(
       {Key? key,
@@ -14,13 +16,17 @@ class AlbumWidget extends StatelessWidget {
       required this.height,
       required this.type,
       required this.urlImage,
-      required this.id})
+      required this.id,
+      required this.title})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed('/result_album',
+            arguments: Album.arguments(title, urlImage, id));
+      },
       child: Container(
           width: width,
           height: height,

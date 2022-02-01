@@ -28,11 +28,13 @@ Widget returnCorrectObject(Object object) {
   } else if (object.toString() == 'album') {
     object = object as Album;
     return AlbumWidget(
-        height: 100,
-        width: 150,
-        type: 1,
-        urlImage: object.coverMedium,
-        id: object.id);
+      height: 100,
+      width: 150,
+      type: 1,
+      urlImage: object.coverMedium,
+      id: object.id,
+      title: object.title,
+    );
   } else if (object.toString() == 'playlist') {
     object = object as Playlist;
     return PlayListWidget(
