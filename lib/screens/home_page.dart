@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:spotify_clone/helpers/chose_message.dart';
 import 'package:spotify_clone/helpers/list_widgets.dart';
-import 'package:spotify_clone/helpers/message.dart';
 import 'package:spotify_clone/repositories/chart_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/screens/search.dart';
@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(createMessage()),
+        title: Text(choseMessage(_selectedIndex)),
         backgroundColor: ColorPalette.darkItermediare,
         actions: const [
           IconButton(
