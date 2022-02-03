@@ -9,12 +9,20 @@ import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class RescultAlbum extends StatelessWidget {
-  const RescultAlbum({Key? key}) : super(key: key);
+  final String title;
+  final String coverMedium;
+  final int id;
+
+  const RescultAlbum(
+      {Key? key,
+      required this.title,
+      required this.coverMedium,
+      required this.id})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Resource client = Resource('https://api.deezer.com/', {});
-    final args = ModalRoute.of(context)!.settings.arguments as Album;
 
     return Scaffold(
       appBar:
@@ -35,25 +43,25 @@ class RescultAlbum extends StatelessWidget {
         child: Column(
           children: [
             Header(
-              title: args.title,
-              urlImage: args.coverMedium,
+              title: title,
+              urlImage: coverMedium,
               titleButton: 'Reproduzir',
             ),
             FutureBuilder(
-              future: AlbumRepositorie(client.dio).tracks(args.id),
+              future: AlbumRepositorie(client.dio).tracks(id),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Track>> snapshot) {
                 if (snapshot.hasData) {
                   EasyLoading.dismiss();
                   return Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.5,
+                    height: MediaQuery.of(context).size.height * 0.44,
                     margin: const EdgeInsets.only(top: 20),
                     child: ListView(
                       children: [
                         ...snapshot.data!.map<Widget>((object) {
                           return EpisodeWidget(
-                            urlImage: args.coverMedium,
+                            urlImage: coverMedium,
                             duration: object.duration,
                             title: object.title,
                           );
