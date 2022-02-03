@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:spotify_clone/helpers/chose_message.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class Search extends StatefulWidget {
@@ -14,40 +15,46 @@ class _SearchState extends State<Search> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height,
-      padding: const EdgeInsets.all(10),
-      color: ColorPalette.darkItermediare,
-      child: Column(
-        children: [
-          Form(
-            key: _form,
-            child: TextFormField(
-              controller: _value,
-              cursorColor: Colors.white,
-              style: const TextStyle(fontSize: 15, color: Colors.white),
-              decoration: InputDecoration(
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  borderSide: BorderSide(color: Colors.red),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(choseMessage(1)),
+        backgroundColor: ColorPalette.darkItermediare,
+      ),
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        padding: const EdgeInsets.all(10),
+        color: ColorPalette.darkItermediare,
+        child: Column(
+          children: [
+            Form(
+              key: _form,
+              child: TextFormField(
+                controller: _value,
+                cursorColor: Colors.white,
+                style: const TextStyle(fontSize: 15, color: Colors.white),
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: ColorPalette.darkItermediare,
+                  ),
+                  fillColor: ColorPalette.darkSecondary,
+                  filled: true,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                        color: ColorPalette.darkItermediare, width: 2.0),
+                    borderRadius: BorderRadius.circular(25.0),
+                  ),
                 ),
-                prefixIcon: const Icon(
-                  Icons.search,
-                  color: ColorPalette.darkItermediare,
-                ),
-                fillColor: ColorPalette.darkSecondary,
-                filled: true,
-                focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(
-                      color: ColorPalette.darkItermediare, width: 2.0),
-                  borderRadius: BorderRadius.circular(25.0),
-                ),
+                keyboardType: TextInputType.text,
               ),
-              keyboardType: TextInputType.text,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

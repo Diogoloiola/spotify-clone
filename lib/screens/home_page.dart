@@ -40,46 +40,15 @@ class _MyHomePageState extends State<MyHomePage> {
           final isFirstRouteInCurrentTab =
               !await _navigatorKeys[_currentPage]!.currentState!.maybePop();
           if (isFirstRouteInCurrentTab) {
-            if (_currentPage != "Page1") {
-              _selectTab("Page1", 1);
+            if (_currentPage != "Home") {
+              _selectTab("Home", 1);
 
               return false;
             }
           }
-          // let system handle back button if we're on the first route
           return isFirstRouteInCurrentTab;
         },
         child: Scaffold(
-          // appBar: AppBar(
-          //   title: Text(choseMessage(_selectedIndex)),
-          //   backgroundColor: ColorPalette.darkItermediare,
-          //   actions: const [
-          //     IconButton(
-          //       icon: FaIcon(
-          //         FontAwesomeIcons.bell,
-          //         color: Colors.white,
-          //       ),
-          //       tooltip: 'Notificações',
-          //       onPressed: null,
-          //     ),
-          //     IconButton(
-          //       icon: FaIcon(
-          //         FontAwesomeIcons.redoAlt,
-          //         color: Colors.white,
-          //       ),
-          //       tooltip: 'Show Snackbar',
-          //       onPressed: null,
-          //     ),
-          //     IconButton(
-          //       icon: Icon(
-          //         Icons.settings,
-          //         color: Colors.white,
-          //       ),
-          //       tooltip: 'Show Snackbar',
-          //       onPressed: null,
-          //     ),
-          //   ],
-          // ),
           body: Stack(
             children: [
               _buildOffstageNavigator("Home"),
