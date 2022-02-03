@@ -55,36 +55,36 @@ class _MyHomePageState extends State<MyHomePage> {
           return isFirstRouteInCurrentTab;
         },
         child: Scaffold(
-          appBar: AppBar(
-            title: Text(choseMessage(_selectedIndex)),
-            backgroundColor: ColorPalette.darkItermediare,
-            actions: const [
-              IconButton(
-                icon: FaIcon(
-                  FontAwesomeIcons.bell,
-                  color: Colors.white,
-                ),
-                tooltip: 'Notificações',
-                onPressed: null,
-              ),
-              IconButton(
-                icon: FaIcon(
-                  FontAwesomeIcons.redoAlt,
-                  color: Colors.white,
-                ),
-                tooltip: 'Show Snackbar',
-                onPressed: null,
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.settings,
-                  color: Colors.white,
-                ),
-                tooltip: 'Show Snackbar',
-                onPressed: null,
-              ),
-            ],
-          ),
+          // appBar: AppBar(
+          //   title: Text(choseMessage(_selectedIndex)),
+          //   backgroundColor: ColorPalette.darkItermediare,
+          //   actions: const [
+          //     IconButton(
+          //       icon: FaIcon(
+          //         FontAwesomeIcons.bell,
+          //         color: Colors.white,
+          //       ),
+          //       tooltip: 'Notificações',
+          //       onPressed: null,
+          //     ),
+          //     IconButton(
+          //       icon: FaIcon(
+          //         FontAwesomeIcons.redoAlt,
+          //         color: Colors.white,
+          //       ),
+          //       tooltip: 'Show Snackbar',
+          //       onPressed: null,
+          //     ),
+          //     IconButton(
+          //       icon: Icon(
+          //         Icons.settings,
+          //         color: Colors.white,
+          //       ),
+          //       tooltip: 'Show Snackbar',
+          //       onPressed: null,
+          //     ),
+          //   ],
+          // ),
           body: Stack(
             children: [
               _buildOffstageNavigator("Home"),
@@ -203,36 +203,36 @@ class Home extends StatelessWidget {
     Resource client = Resource('https://api.deezer.com/', {});
 
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(choseMessage(1)),
-      //   backgroundColor: ColorPalette.darkItermediare,
-      //   actions: const [
-      //     IconButton(
-      //       icon: FaIcon(
-      //         FontAwesomeIcons.bell,
-      //         color: Colors.white,
-      //       ),
-      //       tooltip: 'Notificações',
-      //       onPressed: null,
-      //     ),
-      //     IconButton(
-      //       icon: FaIcon(
-      //         FontAwesomeIcons.redoAlt,
-      //         color: Colors.white,
-      //       ),
-      //       tooltip: 'Show Snackbar',
-      //       onPressed: null,
-      //     ),
-      //     IconButton(
-      //       icon: Icon(
-      //         Icons.settings,
-      //         color: Colors.white,
-      //       ),
-      //       tooltip: 'Show Snackbar',
-      //       onPressed: null,
-      //     ),
-      //   ],
-      // ),
+      appBar: AppBar(
+        title: Text(choseMessage(0)),
+        backgroundColor: ColorPalette.darkItermediare,
+        actions: const [
+          IconButton(
+            icon: FaIcon(
+              FontAwesomeIcons.bell,
+              color: Colors.white,
+            ),
+            tooltip: 'Notificações',
+            onPressed: null,
+          ),
+          IconButton(
+            icon: FaIcon(
+              FontAwesomeIcons.redoAlt,
+              color: Colors.white,
+            ),
+            tooltip: 'Show Snackbar',
+            onPressed: null,
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            tooltip: 'Show Snackbar',
+            onPressed: null,
+          ),
+        ],
+      ),
       body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,

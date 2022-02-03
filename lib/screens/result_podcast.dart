@@ -10,12 +10,20 @@ import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class ResultPodcast extends StatelessWidget {
-  const ResultPodcast({Key? key}) : super(key: key);
+  final String title;
+  final String pictureMedium;
+  final int id;
+
+  const ResultPodcast(
+      {Key? key,
+      required this.title,
+      required this.pictureMedium,
+      required this.id})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Resource client = Resource('https://api.deezer.com/', {});
-    final args = ModalRoute.of(context)!.settings.arguments as Podcast;
 
     return Scaffold(
       appBar:
@@ -36,12 +44,12 @@ class ResultPodcast extends StatelessWidget {
         child: Column(
           children: [
             Header(
-              title: args.title,
-              urlImage: args.pictureMedium,
+              title: title,
+              urlImage: pictureMedium,
               titleButton: 'Escute',
             ),
             FutureBuilder(
-              future: PodcastRepositorie(client.dio).find(args.id),
+              future: PodcastRepositorie(client.dio).find(id),
               builder: (BuildContext context,
                   AsyncSnapshot<List<Episode>> snapshot) {
                 if (snapshot.hasData) {
