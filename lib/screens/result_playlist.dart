@@ -9,12 +9,19 @@ import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class ResultPlayList extends StatelessWidget {
-  const ResultPlayList({Key? key}) : super(key: key);
+  final String title;
+  final String pictureMedium;
+  final int id;
+  const ResultPlayList(
+      {Key? key,
+      required this.title,
+      required this.pictureMedium,
+      required this.id})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Resource client = Resource('https://api.deezer.com/', {});
-    final args = ModalRoute.of(context)!.settings.arguments as Playlist;
 
     return Scaffold(
       appBar:
@@ -35,19 +42,19 @@ class ResultPlayList extends StatelessWidget {
         child: Column(
           children: [
             Header(
-              title: args.title,
-              urlImage: args.pictureMedium,
+              title: title,
+              urlImage: pictureMedium,
               titleButton: 'Reproduzir',
             ),
             FutureBuilder(
-              future: PlaylistRepositorie(client.dio).tracks(args.id),
+              future: PlaylistRepositorie(client.dio).tracks(id),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Track>> snapshot) {
                 if (snapshot.hasData) {
                   EasyLoading.dismiss();
                   return Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.5,
+                    height: MediaQuery.of(context).size.height * 0.44,
                     margin: const EdgeInsets.only(top: 20),
                     child: ListView(
                       children: [
