@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:spotify_clone/components/header.dart';
 import 'package:spotify_clone/models/episode.dart';
-import 'package:spotify_clone/models/podcast.dart';
 import 'package:spotify_clone/repositories/podcast_repositorie.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';

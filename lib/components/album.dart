@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_clone/models/album.dart';
 import 'package:spotify_clone/screens/result_album.dart';
 import 'package:spotify_clone/theme/colors.dart';
 

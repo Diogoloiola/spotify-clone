@@ -7,7 +7,6 @@ import 'package:spotify_clone/repositories/chart_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/routes/navigator.dart';
 import 'package:spotify_clone/theme/colors.dart';
-import 'package:spotify_clone/screens/search.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -23,7 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
     'Home': GlobalKey<NavigatorState>(),
     'Search': GlobalKey<NavigatorState>(),
   };
-  int _selectedIndex = 0;
 
   void _selectTab(String tabItem, int index) {
     if (tabItem == _currentPage) {
@@ -31,15 +29,12 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       setState(() {
         _currentPage = pageKeys[index];
-        _selectedIndex = index;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Resource client = Resource('https://api.deezer.com/', {});
-
     return WillPopScope(
         onWillPop: () async {
           final isFirstRouteInCurrentTab =

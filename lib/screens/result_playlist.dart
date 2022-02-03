@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spotify_clone/components/header.dart';
-import 'package:spotify_clone/models/playlist.dart';
 import 'package:spotify_clone/models/track.dart';
 import 'package:spotify_clone/repositories/playlist_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
