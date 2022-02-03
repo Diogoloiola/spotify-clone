@@ -57,7 +57,7 @@ class ResultPodcast extends StatelessWidget {
                     EasyLoading.dismiss();
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.44,
                       // padding: const EdgeInsets.all(20),
                       margin: const EdgeInsets.only(top: 20),
                       child: ListView(
