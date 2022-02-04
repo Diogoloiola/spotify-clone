@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/controllers/player_controller.dart';
+import 'package:spotify_clone/helpers/choose_height.dart';
+import 'package:spotify_clone/theme/colors.dart';
 
 class Player extends StatelessWidget {
   final int type;
@@ -7,7 +9,13 @@ class Player extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    double height = MediaQuery.of(context).size.height;
+    return SizedBox(
+      width: PlayerController.instance.isplaying ? double.infinity : 0,
+      height: PlayerController.instance.isplaying
+          ? chooseHeight(
+              PlayerController.instance.isCollapse, [height * .92, 50.0])
+          : 0,
       child: type == 1 ? const PlayerOne() : const PlayerTwo(),
     );
   }
@@ -22,38 +30,42 @@ class PlayerOne extends StatelessWidget {
       onTap: () {
         PlayerController.instance.collpase();
       },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  PlayerController.instance.tracks[0].coverMedium,
-                  fit: BoxFit.fill,
-                  width: 40,
-                  height: 40,
+      child: Container(
+        color: ColorPalette.darkSecondary,
+        width: MediaQuery.of(context).size.width,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.network(
+                    PlayerController.instance.tracks[0].coverMedium,
+                    fit: BoxFit.fill,
+                    width: 40,
+                    height: 40,
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 20),
-                child: Text(
-                  PlayerController.instance.tracks[0].title,
-                  // textDirection: TextDirection.rtl,
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                Container(
+                  margin: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    PlayerController.instance.tracks[0].title,
+                    // textDirection: TextDirection.rtl,
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Icon(
-            PlayerController.instance.isplaying
-                ? Icons.pause
-                : Icons.play_circle,
-            color: Colors.white,
-          )
-        ],
+              ],
+            ),
+            Icon(
+              PlayerController.instance.isplaying
+                  ? Icons.pause
+                  : Icons.play_circle,
+              color: Colors.white,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -196,7 +208,7 @@ class Header extends StatelessWidget {
 
     return Container(
       width: width,
-      margin: const EdgeInsets.only(top: 40),
+      margin: const EdgeInsets.only(top: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -209,8 +221,9 @@ class Header extends StatelessWidget {
                 PlayerController.instance.collpase();
               },
               child: const Icon(
-                Icons.play_arrow,
+                Icons.arrow_drop_down,
                 color: Colors.white,
+                size: 40,
               ))
         ],
       ),

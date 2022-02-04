@@ -38,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return AnimatedBuilder(
         animation: PlayerController.instance,
         builder: (context, child) {
@@ -75,60 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: ColorPalette.darkItermediare,
                     ),
                     child: Column(
-                      children: [
-                        Container(
-                          width: PlayerController.instance.isplaying
-                              ? double.infinity
-                              : 0,
-                          height: PlayerController.instance.isplaying
-                              ? chooseHeight(
-                                  PlayerController.instance.isCollapse,
-                                  [height * .92, 50.0])
-                              : 0,
-                          color: ColorPalette.darkSecondary,
-                          margin: const EdgeInsets.only(bottom: 0),
-                          child: _player(),
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  _selectTab(pageKeys[0], 0);
-                                },
-                                child: Column(
-                                  children: const [
-                                    Icon(
-                                      Icons.home,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      'Home',
-                                      style: TextStyle(color: Colors.white),
-                                    )
-                                  ],
-                                )),
-                            GestureDetector(
-                              onTap: () {
-                                _selectTab(pageKeys[1], 1);
-                              },
-                              child: Column(
-                                children: const [
-                                  Icon(
-                                    Icons.search,
-                                    color: Colors.white,
-                                  ),
-                                  Text(
-                                    'Pesquisar',
-                                    style: TextStyle(color: Colors.white),
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        )
-                      ],
+                      children: [_player(), _bottomNavigation()],
                     ),
                   ),
                 ),
@@ -139,6 +85,51 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _player() {
     if (PlayerController.instance.isplaying) {
       return Player(type: PlayerController.instance.isCollapse ? 2 : 1);
+    }
+    return const SizedBox();
+  }
+
+  Widget _bottomNavigation() {
+    if (!PlayerController.instance.isCollapse) {
+      return Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GestureDetector(
+              onTap: () {
+                _selectTab(pageKeys[0], 0);
+              },
+              child: Column(
+                children: const [
+                  Icon(
+                    Icons.home,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'Home',
+                    style: TextStyle(color: Colors.white),
+                  )
+                ],
+              )),
+          GestureDetector(
+            onTap: () {
+              _selectTab(pageKeys[1], 1);
+            },
+            child: Column(
+              children: const [
+                Icon(
+                  Icons.search,
+                  color: Colors.white,
+                ),
+                Text(
+                  'Pesquisar',
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
+            ),
+          )
+        ],
+      );
     }
     return const SizedBox();
   }
