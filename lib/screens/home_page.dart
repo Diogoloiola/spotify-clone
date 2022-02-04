@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/helpers/chose_message.dart';
 import 'package:spotify_clone/helpers/list_widgets.dart';
 import 'package:spotify_clone/repositories/chart_repositorire.dart';
@@ -35,79 +36,93 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-        onWillPop: () async {
-          final isFirstRouteInCurrentTab =
-              !await _navigatorKeys[_currentPage]!.currentState!.maybePop();
-          if (isFirstRouteInCurrentTab) {
-            if (_currentPage != "Home") {
-              _selectTab("Home", 1);
+    return AnimatedBuilder(
+        animation: PlayerController.instance,
+        builder: (context, child) {
+          return WillPopScope(
+              onWillPop: () async {
+                final isFirstRouteInCurrentTab =
+                    !await _navigatorKeys[_currentPage]!
+                        .currentState!
+                        .maybePop();
+                if (isFirstRouteInCurrentTab) {
+                  if (_currentPage != "Home") {
+                    _selectTab("Home", 1);
 
-              return false;
-            }
-          }
-          return isFirstRouteInCurrentTab;
-        },
-        child: Scaffold(
-          body: Stack(
-            children: [
-              _buildOffstageNavigator("Home"),
-              _buildOffstageNavigator("Search"),
-            ],
-          ),
-          bottomNavigationBar: BottomAppBar(
-            child: Container(
-              height: 50.0,
-              width: double.maxFinite,
-              decoration: const BoxDecoration(
-                color: ColorPalette.darkItermediare,
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            _selectTab(pageKeys[0], 0);
-                          },
-                          child: Column(
-                            children: const [
-                              Icon(
-                                Icons.home,
-                                color: Colors.white,
+                    return false;
+                  }
+                }
+                return isFirstRouteInCurrentTab;
+              },
+              child: Scaffold(
+                body: Stack(
+                  children: [
+                    _buildOffstageNavigator("Home"),
+                    _buildOffstageNavigator("Search"),
+                  ],
+                ),
+                bottomNavigationBar: BottomAppBar(
+                  child: Container(
+                    height: PlayerController.instance.isplaying ? 100.0 : 50,
+                    width: double.maxFinite,
+                    decoration: const BoxDecoration(
+                      color: ColorPalette.darkItermediare,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: PlayerController.instance.isplaying
+                              ? double.infinity
+                              : 0,
+                          height: PlayerController.instance.isplaying ? 50 : 0,
+                          color: Colors.red,
+                          margin: const EdgeInsets.only(bottom: 0),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  _selectTab(pageKeys[0], 0);
+                                },
+                                child: Column(
+                                  children: const [
+                                    Icon(
+                                      Icons.home,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      'Home',
+                                      style: TextStyle(color: Colors.white),
+                                    )
+                                  ],
+                                )),
+                            GestureDetector(
+                              onTap: () {
+                                _selectTab(pageKeys[1], 1);
+                              },
+                              child: Column(
+                                children: const [
+                                  Icon(
+                                    Icons.search,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    'Pesquisar',
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
                               ),
-                              Text(
-                                'Home',
-                                style: TextStyle(color: Colors.white),
-                              )
-                            ],
-                          )),
-                      GestureDetector(
-                        onTap: () {
-                          _selectTab(pageKeys[1], 1);
-                        },
-                        child: Column(
-                          children: const [
-                            Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              'Pesquisar',
-                              style: TextStyle(color: Colors.white),
                             )
                           ],
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
-        ));
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ));
+        });
   }
 
   Widget _buildOffstageNavigator(String tabItem) {

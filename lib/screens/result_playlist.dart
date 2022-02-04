@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spotify_clone/components/header.dart';
+import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/models/track.dart';
 import 'package:spotify_clone/repositories/playlist_repositorire.dart';
 import 'package:spotify_clone/repositories/resource.dart';
@@ -21,7 +22,7 @@ class ResultPlayList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Resource client = Resource('https://api.deezer.com/', {});
-
+    int i = 0;
     return Scaffold(
       appBar:
           AppBar(backgroundColor: ColorPalette.darkSecondary, actions: const [
@@ -53,16 +54,17 @@ class ResultPlayList extends StatelessWidget {
                   EasyLoading.dismiss();
                   return Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.44,
+                    height: MediaQuery.of(context).size.height * 0.38,
                     margin: const EdgeInsets.only(top: 20),
                     child: ListView(
                       children: [
                         ...snapshot.data!.map<Widget>((object) {
+                          PlayerController.instance.tracks.add(object.preview);
                           return EpisodeWidget(
-                            urlImage: object.coverMedium,
-                            duration: object.duration,
-                            title: object.title,
-                          );
+                              urlImage: object.coverMedium,
+                              duration: object.duration,
+                              title: object.title,
+                              index: i++);
                         }).toList()
                       ],
                     ),
@@ -83,12 +85,15 @@ class EpisodeWidget extends StatelessWidget {
   final String urlImage;
   final int duration;
   final String title;
-  const EpisodeWidget({
-    Key? key,
-    required this.urlImage,
-    required this.duration,
-    required this.title,
-  }) : super(key: key);
+  final int index;
+
+  const EpisodeWidget(
+      {Key? key,
+      required this.urlImage,
+      required this.duration,
+      required this.title,
+      required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -120,10 +125,14 @@ class EpisodeWidget extends StatelessWidget {
               ),
             ],
           ),
-          const Icon(
-            Icons.play_circle,
-            color: Colors.white,
-          )
+          TextButton(
+              onPressed: () async {
+                await PlayerController.instance.play(index);
+              },
+              child: const Icon(
+                Icons.play_circle,
+                color: Colors.white,
+              ))
         ],
       ),
     );
