@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:spotify_clone/components/player.dart';
 import 'package:spotify_clone/controllers/player_controller.dart';
+import 'package:spotify_clone/helpers/choose_height.dart';
 import 'package:spotify_clone/helpers/chose_message.dart';
 import 'package:spotify_clone/helpers/list_widgets.dart';
 import 'package:spotify_clone/repositories/chart_repositorire.dart';
@@ -36,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return AnimatedBuilder(
         animation: PlayerController.instance,
         builder: (context, child) {
@@ -63,7 +66,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 bottomNavigationBar: BottomAppBar(
                   child: Container(
-                    height: PlayerController.instance.isplaying ? 100.0 : 50,
+                    height: PlayerController.instance.isplaying
+                        ? chooseHeight(PlayerController.instance.isCollapse,
+                            [900.0, 100.0])
+                        : 50,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
                       color: ColorPalette.darkItermediare,
@@ -74,9 +80,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           width: PlayerController.instance.isplaying
                               ? double.infinity
                               : 0,
-                          height: PlayerController.instance.isplaying ? 50 : 0,
-                          color: Colors.red,
+                          height: PlayerController.instance.isplaying
+                              ? chooseHeight(
+                                  PlayerController.instance.isCollapse,
+                                  [height * .92, 50.0])
+                              : 0,
+                          color: ColorPalette.darkSecondary,
                           margin: const EdgeInsets.only(bottom: 0),
+                          child: _player(),
                         ),
                         Row(
                           mainAxisSize: MainAxisSize.max,
@@ -123,6 +134,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ));
         });
+  }
+
+  Widget _player() {
+    if (PlayerController.instance.isplaying) {
+      return Player(type: PlayerController.instance.isCollapse ? 2 : 1);
+    }
+    return const SizedBox();
   }
 
   Widget _buildOffstageNavigator(String tabItem) {

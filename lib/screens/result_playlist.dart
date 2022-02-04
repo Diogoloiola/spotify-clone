@@ -64,7 +64,7 @@ class ResultPlayList extends StatelessWidget {
                     child: ListView(
                       children: [
                         ...snapshot.data!.map<Widget>((object) {
-                          PlayerController.instance.tracks.add(object.preview);
+                          // PlayerController.instance.tracks.add(object.preview);
                           return EpisodeWidget(
                               urlImage: object.coverMedium,
                               duration: object.duration,
@@ -132,7 +132,7 @@ class EpisodeWidget extends StatelessWidget {
           ),
           TextButton(
               onPressed: () async {
-                await PlayerController.instance.play(index);
+                // await PlayerController.instance.play(index);
               },
               child: const Icon(
                 Icons.play_circle,

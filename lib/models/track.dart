@@ -48,6 +48,8 @@ class Track {
         message = json['message'],
         type = json['type'];
 
+  Track.track(this.title, this.coverMedium, this.preview);
+
   static List<Track> jsonToList(data) {
     return data.map<Track>((map) => Track.fromJson(map)).toList();
   }
