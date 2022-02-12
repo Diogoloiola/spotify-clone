@@ -38,19 +38,12 @@ class PlayerOne extends StatelessWidget {
           children: [
             Row(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    PlayerController.instance.tracks[0].coverMedium,
-                    fit: BoxFit.fill,
-                    width: 40,
-                    height: 40,
-                  ),
-                ),
+                _contanierImage(),
                 Container(
                   margin: const EdgeInsets.only(left: 20),
                   child: Text(
-                    PlayerController.instance.tracks[0].title,
+                    PlayerController.instance
+                        .tracks[PlayerController.instance.currentIndex].title,
                     // textDirection: TextDirection.rtl,
                     style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
@@ -66,6 +59,25 @@ class PlayerOne extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _contanierImage() {
+    if (PlayerController.instance.coverMedium == '') {
+      return Container(
+        width: 40,
+        height: 40,
+        color: ColorPalette.darkSecondary,
+      );
+    }
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+      child: Image.network(
+        PlayerController.instance.coverMedium,
+        fit: BoxFit.fill,
+        width: 40,
+        height: 40,
       ),
     );
   }
@@ -96,7 +108,7 @@ class PlayerTwo extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                PlayerController.instance.tracks[0].coverMedium,
+                PlayerController.instance.coverMedium,
                 fit: BoxFit.fill,
                 width: 40,
                 height: 40,
@@ -124,7 +136,8 @@ class PlayerControlls extends StatelessWidget {
             width: width,
             margin: const EdgeInsets.only(bottom: 20),
             child: Text(
-              PlayerController.instance.tracks[0].title,
+              PlayerController.instance
+                  .tracks[PlayerController.instance.currentIndex].title,
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 30,
@@ -213,7 +226,7 @@ class Header extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text(
-            'Isso é uma música',
+            'Música',
             style: TextStyle(color: Colors.white, fontSize: 25),
           ),
           TextButton(
