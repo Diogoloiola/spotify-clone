@@ -26,6 +26,8 @@ class PlayerOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String title = PlayerController
+        .instance.tracks[PlayerController.instance.currentIndex].title;
     return GestureDetector(
       onTap: () {
         PlayerController.instance.collpase();
@@ -42,8 +44,7 @@ class PlayerOne extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(left: 20),
                   child: Text(
-                    PlayerController.instance
-                        .tracks[PlayerController.instance.currentIndex].title,
+                    title.length > 40 ? title.substring(0, 40) : title,
                     // textDirection: TextDirection.rtl,
                     style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
