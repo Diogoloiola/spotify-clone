@@ -27,9 +27,13 @@ class PlayerController extends ChangeNotifier {
     }
   }
 
-  continueMusic() {
-    isplaying = true;
-    audioplayed = true;
+  pause() async {
+    if (audioplayed) {
+      await player.pause();
+    } else {
+      await player.resume();
+    }
+    audioplayed = !audioplayed;
     notifyListeners();
   }
 
@@ -60,7 +64,7 @@ class PlayerController extends ChangeNotifier {
   }
 
   setnovo() {
-    isplaying = true;
+    isplaying = !isplaying;
     notifyListeners();
   }
 
