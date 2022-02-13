@@ -21,9 +21,14 @@ class Player extends StatelessWidget {
   }
 }
 
-class PlayerOne extends StatelessWidget {
+class PlayerOne extends StatefulWidget {
   const PlayerOne({Key? key}) : super(key: key);
 
+  @override
+  _PlayerOneState createState() => _PlayerOneState();
+}
+
+class _PlayerOneState extends State<PlayerOne> {
   @override
   Widget build(BuildContext context) {
     String title = PlayerController
@@ -45,19 +50,23 @@ class PlayerOne extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 20),
                   child: Text(
                     title.length > 40 ? title.substring(0, 40) : title,
-                    // textDirection: TextDirection.rtl,
                     style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
             ),
-            Icon(
-              PlayerController.instance.isplaying
-                  ? Icons.pause
-                  : Icons.play_circle,
-              color: Colors.white,
-            )
+            IconButton(
+                onPressed: () async {
+                  await PlayerController.instance.pause();
+                  setState(() {});
+                },
+                icon: Icon(
+                  PlayerController.instance.audioplayed
+                      ? Icons.pause
+                      : Icons.play_circle,
+                  color: Colors.white,
+                ))
           ],
         ),
       ),
