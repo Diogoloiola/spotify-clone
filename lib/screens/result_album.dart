@@ -61,7 +61,7 @@ class RescultAlbum extends StatelessWidget {
                   return Container(
                     width: width,
                     height: chooseHeight(PlayerController.instance.isplaying,
-                        [height * 0.34, height * 0.44]),
+                        [height * 0.34, height * 0.40]),
                     margin: const EdgeInsets.only(top: 20),
                     child: ListView(
                       children: [
@@ -141,12 +141,15 @@ class EpisodeWidget extends StatelessWidget {
           IconButton(
               onPressed: () async {
                 if (PlayerController.instance.coverMedium != urlImage) {
+                  await PlayerController.instance.stop();
                   Resource client = Resource('https://api.deezer.com/', {});
                   PlayerController.instance.tracks =
                       await AlbumRepositorie(client.dio).tracks(idPlayList);
                 }
+                await PlayerController.instance.stop();
+                await Future.delayed(const Duration(milliseconds: 7));
                 PlayerController.instance.setImage(urlImage);
-                PlayerController.instance.play(index);
+                await PlayerController.instance.play(index);
               },
               icon: const Icon(
                 Icons.play_circle,
