@@ -3,6 +3,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:spotify_clone/components/header.dart';
+import 'package:spotify_clone/controllers/player_controller.dart';
+import 'package:spotify_clone/helpers/choose_height.dart';
 import 'package:spotify_clone/models/episode.dart';
 import 'package:spotify_clone/repositories/podcast_repositorie.dart';
 import 'package:spotify_clone/repositories/resource.dart';
@@ -23,6 +25,8 @@ class ResultPodcast extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Resource client = Resource('https://api.deezer.com/', {});
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar:
@@ -37,8 +41,8 @@ class ResultPodcast extends StatelessWidget {
         ),
       ]),
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        width: width,
+        height: height,
         color: ColorPalette.darkItermediare,
         child: Column(
           children: [
@@ -56,8 +60,8 @@ class ResultPodcast extends StatelessWidget {
                     EasyLoading.dismiss();
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.44,
-                      // padding: const EdgeInsets.all(20),
+                      height: chooseHeight(PlayerController.instance.isplaying,
+                          [height * 0.34, height * 0.40]),
                       margin: const EdgeInsets.only(top: 20),
                       child: ListView(
                         children: [
