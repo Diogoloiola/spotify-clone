@@ -17,6 +17,7 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final _form = GlobalKey<FormState>();
   final _value = TextEditingController();
+  bool isCollapse = false;
   List<Track> tracks = [];
 
   @override
@@ -39,28 +40,35 @@ class _SearchState extends State<Search> {
           children: [
             Form(
               key: _form,
-              child: TextFormField(
-                controller: _value,
-                cursorColor: Colors.white,
-                style: const TextStyle(fontSize: 15, color: Colors.white),
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                    borderSide: BorderSide(color: Colors.red),
+              child: Focus(
+                onFocusChange: (focus) {
+                  setState(() {
+                    isCollapse = true;
+                  });
+                },
+                child: TextFormField(
+                  controller: _value,
+                  cursorColor: Colors.white,
+                  style: const TextStyle(fontSize: 15, color: Colors.white),
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    prefixIcon: const Icon(
+                      Icons.search,
+                      color: ColorPalette.darkItermediare,
+                    ),
+                    fillColor: ColorPalette.darkSecondary,
+                    filled: true,
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: ColorPalette.darkItermediare, width: 2.0),
+                      borderRadius: BorderRadius.circular(25.0),
+                    ),
                   ),
-                  prefixIcon: const Icon(
-                    Icons.search,
-                    color: ColorPalette.darkItermediare,
-                  ),
-                  fillColor: ColorPalette.darkSecondary,
-                  filled: true,
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: ColorPalette.darkItermediare, width: 2.0),
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
+                  keyboardType: TextInputType.text,
                 ),
-                keyboardType: TextInputType.text,
               ),
             ),
             GestureDetector(
@@ -71,6 +79,7 @@ class _SearchState extends State<Search> {
                 var data = await search.search(_value.text);
                 setState(() {
                   tracks = data;
+                  isCollapse = false;
                 });
                 index = 0;
                 EasyLoading.dismiss();
@@ -79,8 +88,8 @@ class _SearchState extends State<Search> {
             ),
             Container(
               width: width,
-              height: height * .56,
-              margin: const EdgeInsets.only(top: 10),
+              height: isCollapse ? 0 : 300,
+              // margin: const EdgeInsets.only(top: 10),
               child: ListView(
                 children: [
                   ...tracks.map<Widget>((object) {
