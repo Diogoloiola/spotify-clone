@@ -132,9 +132,14 @@ class PlayerTwo extends StatelessWidget {
   }
 }
 
-class PlayerControlls extends StatelessWidget {
+class PlayerControlls extends StatefulWidget {
   const PlayerControlls({Key? key}) : super(key: key);
 
+  @override
+  _PlayerControllsState createState() => _PlayerControllsState();
+}
+
+class _PlayerControllsState extends State<PlayerControlls> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -169,7 +174,7 @@ class PlayerControlls extends StatelessWidget {
                           fontSize: 17),
                     ),
                     Text(
-                      '00:29',
+                      '00:00',
                       style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -197,10 +202,17 @@ class PlayerControlls extends StatelessWidget {
                 Container(
                   width: 60,
                   height: 60,
-                  child: const Icon(
-                    Icons.play_arrow,
-                    size: 40,
-                  ),
+                  child: IconButton(
+                      onPressed: () async {
+                        await PlayerController.instance.pause();
+                        setState(() {});
+                      },
+                      icon: Icon(
+                        PlayerController.instance.audioplayed
+                            ? Icons.pause
+                            : Icons.play_arrow,
+                        size: 40,
+                      )),
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(90)),
                       color: Colors.white),
