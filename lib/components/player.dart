@@ -113,10 +113,10 @@ class PlayerTwo extends StatelessWidget {
             width: width * .7,
             height: height * .4,
             decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: BorderRadius.all(Radius.circular(200)),
                 color: Colors.red),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(200),
               child: Image.network(
                 PlayerController.instance.coverMedium,
                 fit: BoxFit.fill,
