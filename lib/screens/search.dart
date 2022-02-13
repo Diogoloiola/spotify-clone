@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/helpers/chose_message.dart';
+import 'package:spotify_clone/models/track.dart';
+import 'package:spotify_clone/repositories/resource.dart';
+import 'package:spotify_clone/repositories/search_repositorire.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class Search extends StatefulWidget {
@@ -12,17 +17,22 @@ class Search extends StatefulWidget {
 class _SearchState extends State<Search> {
   final _form = GlobalKey<FormState>();
   final _value = TextEditingController();
+  List<Track> tracks = [];
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    PlayerController.instance.tracks = [];
+    int index = 0;
     return Scaffold(
       appBar: AppBar(
         title: Text(choseMessage(1)),
         backgroundColor: ColorPalette.darkItermediare,
       ),
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        width: width,
+        height: height,
         padding: const EdgeInsets.all(10),
         color: ColorPalette.darkItermediare,
         child: Column(
@@ -53,8 +63,126 @@ class _SearchState extends State<Search> {
                 keyboardType: TextInputType.text,
               ),
             ),
+            GestureDetector(
+              onTap: () async {
+                EasyLoading.show();
+                Resource client = Resource('https://api.deezer.com/', {});
+                SearchRepositorie search = SearchRepositorie(client.dio);
+                var data = await search.search(_value.text);
+                setState(() {
+                  tracks = data;
+                });
+                index = 0;
+                EasyLoading.dismiss();
+              },
+              child: const Buttom(),
+            ),
+            Container(
+              width: width,
+              height: height * .56,
+              margin: const EdgeInsets.only(top: 10),
+              child: ListView(
+                children: [
+                  ...tracks.map<Widget>((object) {
+                    PlayerController.instance.tracks.add(object);
+                    return EpisodeWidget(
+                      urlImage: object.coverMedium,
+                      duration: object.duration,
+                      title: object.title,
+                      preview: object.preview,
+                      index: index++,
+                    );
+                  }).toList()
+                ],
+              ),
+            )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class Buttom extends StatelessWidget {
+  const Buttom({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return Container(
+      width: width * .5,
+      margin: const EdgeInsets.only(top: 15),
+      height: 50,
+      decoration: const BoxDecoration(
+        color: ColorPalette.redPrimary,
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+      ),
+      child: const Center(
+        child: Text('Pesquisar',
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 19,
+                fontWeight: FontWeight.bold)),
+      ),
+    );
+  }
+}
+
+class EpisodeWidget extends StatelessWidget {
+  final String urlImage;
+  final int duration;
+  final String title;
+  final String preview;
+  final int index;
+  const EpisodeWidget({
+    Key? key,
+    required this.urlImage,
+    required this.duration,
+    required this.title,
+    required this.preview,
+    required this.index,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                urlImage,
+                fit: BoxFit.fill,
+                width: 40,
+                height: 40,
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.only(left: 20),
+              child: Text(
+                title.length > 45 ? title.substring(0, 30) : title,
+                // textDirection: TextDirection.rtl,
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            )
+          ]),
+          IconButton(
+              onPressed: () async {
+                await PlayerController.instance.stop();
+                await Future.delayed(const Duration(milliseconds: 7));
+                PlayerController.instance.setImage(urlImage);
+                await PlayerController.instance.play(index);
+              },
+              icon: const Icon(
+                Icons.play_circle,
+                color: Colors.white,
+              ))
+        ],
       ),
     );
   }
