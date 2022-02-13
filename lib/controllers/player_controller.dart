@@ -16,11 +16,15 @@ class PlayerController extends ChangeNotifier {
 
   static PlayerController instance = PlayerController();
 
-  stop() {
-    isplaying = false;
-    audioplayed = false;
-    currentpos = 0;
-    notifyListeners();
+  stop() async {
+    int result = await player.stop();
+    if (result == 1) {
+      isplaying = false;
+      audioplayed = false;
+      currentpos = 0;
+      coverMedium = '';
+      notifyListeners();
+    }
   }
 
   continueMusic() {
@@ -58,7 +62,9 @@ class PlayerController extends ChangeNotifier {
   }
 
   setImage(String coverMedium) {
+    this.coverMedium = '';
     this.coverMedium = coverMedium;
+    print('Troquei a img');
     notifyListeners();
   }
 }
