@@ -39,15 +39,18 @@ class PlayerController extends ChangeNotifier {
   }
 
   play(int index) async {
-    int result = await player.play(tracks[index].preview);
-    if (result == 1) {
-      isplaying = true;
-      audioplayed = true;
-      currentpos = index;
-      currentIndex = index;
-      notifyListeners();
-    } else {
-      print('Deu errado');
+    String preview = tracks[index].preview;
+    if (preview.isNotEmpty) {
+      int result = await player.play(preview);
+      if (result == 1) {
+        isplaying = true;
+        audioplayed = true;
+        currentpos = index;
+        currentIndex = index;
+        notifyListeners();
+      } else {
+        print('Deu errado');
+      }
     }
   }
 

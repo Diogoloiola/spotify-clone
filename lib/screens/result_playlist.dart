@@ -56,6 +56,7 @@ class ResultPlayList extends StatelessWidget {
                   (BuildContext context, AsyncSnapshot<List<Track>> snapshot) {
                 if (snapshot.hasData) {
                   EasyLoading.dismiss();
+                  i = 0;
                   return Container(
                     width: width,
                     height: chooseHeight(PlayerController.instance.isplaying,
@@ -69,6 +70,7 @@ class ResultPlayList extends StatelessWidget {
                               urlImage: object.coverMedium,
                               duration: object.duration,
                               title: object.title,
+                              idPlayList: id,
                               index: i++);
                         }).toList()
                       ],
@@ -91,13 +93,14 @@ class EpisodeWidget extends StatelessWidget {
   final int duration;
   final String title;
   final int index;
-
+  final int idPlayList;
   const EpisodeWidget(
       {Key? key,
       required this.urlImage,
       required this.duration,
       required this.title,
-      required this.index})
+      required this.index,
+      required this.idPlayList})
       : super(key: key);
 
   @override
@@ -132,7 +135,16 @@ class EpisodeWidget extends StatelessWidget {
           ),
           TextButton(
               onPressed: () async {
-                // await PlayerController.instance.play(index);
+                if (PlayerController.instance.coverMedium != urlImage) {
+                  await PlayerController.instance.stop();
+                  Resource client = Resource('https://api.deezer.com/', {});
+                  PlayerController.instance.tracks =
+                      await PlaylistRepositorie(client.dio).tracks(idPlayList);
+                }
+                await PlayerController.instance.stop();
+                await Future.delayed(const Duration(milliseconds: 7));
+                PlayerController.instance.setImage(urlImage);
+                await PlayerController.instance.play(index);
               },
               child: const Icon(
                 Icons.play_circle,
