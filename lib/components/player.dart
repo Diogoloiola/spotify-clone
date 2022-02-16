@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/helpers/choose_height.dart';
@@ -93,8 +95,18 @@ class _PlayerOneState extends State<PlayerOne> {
   }
 }
 
-class PlayerTwo extends StatelessWidget {
+class PlayerTwo extends StatefulWidget {
   const PlayerTwo({Key? key}) : super(key: key);
+
+  @override
+  _PlayerTwoState createState() => _PlayerTwoState();
+}
+
+class _PlayerTwoState extends State<PlayerTwo>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller =
+      AnimationController(vsync: this, duration: const Duration(seconds: 8))
+        ..repeat();
 
   @override
   Widget build(BuildContext context) {
@@ -104,29 +116,37 @@ class PlayerTwo extends StatelessWidget {
       width: width,
       height: height,
       padding: const EdgeInsets.all(20),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Header(),
-          Container(
-            width: width * .7,
-            height: height * .4,
-            decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(200)),
-                color: Colors.red),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(200),
-              child: Image.network(
-                PlayerController.instance.coverMedium,
-                fit: BoxFit.fill,
-                width: 40,
-                height: 40,
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (_, child) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Header(),
+              Container(
+                width: width * .7,
+                height: height * .4,
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(200)),
+                    color: Colors.red),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(200),
+                  child: Transform.rotate(
+                    angle: _controller.value * 2 * math.pi,
+                    child: Image.network(
+                      PlayerController.instance.coverMedium,
+                      fit: BoxFit.fill,
+                      width: 40,
+                      height: 40,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-          const PlayerControlls()
-        ],
+              const PlayerControlls()
+            ],
+          );
+        },
       ),
     );
   }
