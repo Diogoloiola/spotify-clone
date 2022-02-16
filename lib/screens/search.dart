@@ -31,89 +31,90 @@ class _SearchState extends State<Search> {
         title: Text(choseMessage(1)),
         backgroundColor: ColorPalette.darkItermediare,
       ),
-      body: Container(
-        width: width,
-        height: height,
-        padding: const EdgeInsets.all(10),
-        color: ColorPalette.darkItermediare,
-        child: Column(
-          children: [
-            Form(
-              key: _form,
-              child: Focus(
-                onFocusChange: (focus) {
-                  setState(() {
-                    isCollapse = true;
-                  });
-                },
-                child: TextFormField(
-                  controller: _value,
-                  cursorColor: Colors.white,
-                  style: const TextStyle(fontSize: 15, color: Colors.white),
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                      borderSide: BorderSide(color: Colors.red),
+      body: SingleChildScrollView(
+        child: Container(
+          width: width,
+          height: height,
+          padding: const EdgeInsets.all(10),
+          color: ColorPalette.darkItermediare,
+          child: Column(
+            children: [
+              Form(
+                key: _form,
+                child: Focus(
+                  onFocusChange: (focus) {
+                    setState(() {
+                      isCollapse = true;
+                    });
+                  },
+                  child: TextFormField(
+                    controller: _value,
+                    cursorColor: Colors.white,
+                    style: const TextStyle(fontSize: 15, color: Colors.white),
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                        borderSide: BorderSide(color: Colors.red),
+                      ),
+                      prefixIcon: const Icon(
+                        Icons.search,
+                        color: ColorPalette.darkItermediare,
+                      ),
+                      fillColor: ColorPalette.darkSecondary,
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                            color: ColorPalette.darkItermediare, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
                     ),
-                    prefixIcon: const Icon(
-                      Icons.search,
-                      color: ColorPalette.darkItermediare,
-                    ),
-                    fillColor: ColorPalette.darkSecondary,
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          color: ColorPalette.darkItermediare, width: 2.0),
-                      borderRadius: BorderRadius.circular(25.0),
-                    ),
+                    keyboardType: TextInputType.text,
                   ),
-                  keyboardType: TextInputType.text,
                 ),
               ),
-            ),
-            GestureDetector(
-              onTap: () async {
-                EasyLoading.show();
-                Resource client = Resource('https://api.deezer.com/', {});
-                SearchRepository search = SearchRepository(client.dio);
-                var data = await search.search(_value.text);
-                setState(() {
-                  tracks = data;
-                  isCollapse = false;
-                });
-                index = 0;
-                EasyLoading.dismiss();
-              },
-              child: const Buttom(),
-            ),
-            Container(
-              width: width,
-              height: isCollapse ? 0 : 300,
-              // margin: const EdgeInsets.only(top: 10),
-              child: ListView(
-                children: [
-                  ...tracks.map<Widget>((object) {
-                    PlayerController.instance.tracks.add(object);
-                    return EpisodeWidget(
-                      urlImage: object.coverMedium,
-                      duration: object.duration,
-                      title: object.title,
-                      preview: object.preview,
-                      index: index++,
-                    );
-                  }).toList()
-                ],
+              GestureDetector(
+                onTap: () async {
+                  EasyLoading.show();
+                  Resource client = Resource('https://api.deezer.com/', {});
+                  SearchRepository search = SearchRepository(client.dio);
+                  var data = await search.search(_value.text);
+                  setState(() {
+                    tracks = data;
+                    isCollapse = false;
+                  });
+                  index = 0;
+                  EasyLoading.dismiss();
+                },
+                child: const Button(),
               ),
-            )
-          ],
+              SizedBox(
+                width: width,
+                height: height * 0.6,
+                child: ListView(
+                  children: [
+                    ...tracks.map<Widget>((object) {
+                      PlayerController.instance.tracks.add(object);
+                      return EpisodeWidget(
+                        urlImage: object.coverMedium,
+                        duration: object.duration,
+                        title: object.title,
+                        preview: object.preview,
+                        index: index++,
+                      );
+                    }).toList()
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class Buttom extends StatelessWidget {
-  const Buttom({Key? key}) : super(key: key);
+class Button extends StatelessWidget {
+  const Button({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
