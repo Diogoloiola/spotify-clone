@@ -2,10 +2,10 @@ import '../models/podcast.dart';
 import '../models/episode.dart';
 import 'package:dio/dio.dart';
 
-class PodcastRepositorie {
+class PodcastRepository {
   late final Dio _client;
 
-  PodcastRepositorie(this._client);
+  PodcastRepository(this._client);
 
   Future<List<Podcast>> all() async {
     final Response response = await _client.get('/podcast');

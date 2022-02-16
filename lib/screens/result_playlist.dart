@@ -5,7 +5,7 @@ import 'package:spotify_clone/components/header.dart';
 import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/helpers/choose_height.dart';
 import 'package:spotify_clone/models/track.dart';
-import 'package:spotify_clone/repositories/playlist_repositorire.dart';
+import 'package:spotify_clone/repositories/playlist_repository.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
@@ -51,7 +51,7 @@ class ResultPlayList extends StatelessWidget {
               titleButton: 'Reproduzir',
             ),
             FutureBuilder(
-              future: PlaylistRepositorie(client.dio).tracks(id),
+              future: PlaylistRepository(client.dio).tracks(id),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Track>> snapshot) {
                 if (snapshot.hasData) {
@@ -139,7 +139,7 @@ class EpisodeWidget extends StatelessWidget {
                   await PlayerController.instance.stop();
                   Resource client = Resource('https://api.deezer.com/', {});
                   PlayerController.instance.tracks =
-                      await PlaylistRepositorie(client.dio).tracks(idPlayList);
+                      await PlaylistRepository(client.dio).tracks(idPlayList);
                 }
                 await PlayerController.instance.stop();
                 await Future.delayed(const Duration(milliseconds: 7));

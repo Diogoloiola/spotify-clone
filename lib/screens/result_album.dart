@@ -5,7 +5,7 @@ import 'package:spotify_clone/components/header.dart';
 import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/helpers/choose_height.dart';
 import 'package:spotify_clone/models/track.dart';
-import 'package:spotify_clone/repositories/album_repositorire.dart';
+import 'package:spotify_clone/repositories/album_reposiitory.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
@@ -52,7 +52,7 @@ class RescultAlbum extends StatelessWidget {
               titleButton: 'Reproduzir',
             ),
             FutureBuilder(
-              future: AlbumRepositorie(client.dio).tracks(id),
+              future: AlbumRepository(client.dio).tracks(id),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Track>> snapshot) {
                 if (snapshot.hasData) {
@@ -144,7 +144,7 @@ class EpisodeWidget extends StatelessWidget {
                   await PlayerController.instance.stop();
                   Resource client = Resource('https://api.deezer.com/', {});
                   PlayerController.instance.tracks =
-                      await AlbumRepositorie(client.dio).tracks(idPlayList);
+                      await AlbumRepository(client.dio).tracks(idPlayList);
                 }
                 await PlayerController.instance.stop();
                 await Future.delayed(const Duration(milliseconds: 7));

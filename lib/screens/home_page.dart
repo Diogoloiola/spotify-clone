@@ -6,7 +6,7 @@ import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/helpers/choose_height.dart';
 import 'package:spotify_clone/helpers/chose_message.dart';
 import 'package:spotify_clone/helpers/list_widgets.dart';
-import 'package:spotify_clone/repositories/chart_repositorire.dart';
+import 'package:spotify_clone/repositories/chart_repository.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/routes/navigator.dart';
 import 'package:spotify_clone/theme/colors.dart';
@@ -227,7 +227,7 @@ class Home extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           color: ColorPalette.darkItermediare,
           child: FutureBuilder(
-            future: ChartRepositorie(client.dio).all(),
+            future: ChartRepository(client.dio).all(),
             builder: (BuildContext context,
                 AsyncSnapshot<Map<String, List<Object>>> snapshot) {
               if (snapshot.hasData) {

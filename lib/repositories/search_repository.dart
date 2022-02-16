@@ -1,10 +1,10 @@
 import '../models/track.dart';
 import 'package:dio/dio.dart';
 
-class SearchRepositorie {
+class SearchRepository {
   late final Dio _client;
 
-  SearchRepositorie(this._client);
+  SearchRepository(this._client);
 
   Future<List<Track>> search(String query) async {
     final Response response =

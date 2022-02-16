@@ -1,10 +1,10 @@
 import '../models/track.dart';
 import 'package:dio/dio.dart';
 
-class AlbumRepositorie {
+class AlbumRepository {
   late final Dio _client;
 
-  AlbumRepositorie(this._client);
+  AlbumRepository(this._client);
 
   Future<List<Track>> tracks(int id) async {
     final Response response = await _client.get("/album/$id/tracks");

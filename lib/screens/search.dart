@@ -4,7 +4,7 @@ import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/helpers/chose_message.dart';
 import 'package:spotify_clone/models/track.dart';
 import 'package:spotify_clone/repositories/resource.dart';
-import 'package:spotify_clone/repositories/search_repositorire.dart';
+import 'package:spotify_clone/repositories/search_repository.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class Search extends StatefulWidget {
@@ -75,7 +75,7 @@ class _SearchState extends State<Search> {
               onTap: () async {
                 EasyLoading.show();
                 Resource client = Resource('https://api.deezer.com/', {});
-                SearchRepositorie search = SearchRepositorie(client.dio);
+                SearchRepository search = SearchRepository(client.dio);
                 var data = await search.search(_value.text);
                 setState(() {
                   tracks = data;

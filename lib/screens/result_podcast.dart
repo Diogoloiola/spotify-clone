@@ -6,7 +6,7 @@ import 'package:spotify_clone/components/header.dart';
 import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/helpers/choose_height.dart';
 import 'package:spotify_clone/models/episode.dart';
-import 'package:spotify_clone/repositories/podcast_repositorie.dart';
+import 'package:spotify_clone/repositories/podcast_repository.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
@@ -52,7 +52,7 @@ class ResultPodcast extends StatelessWidget {
               titleButton: 'Escute',
             ),
             FutureBuilder(
-              future: PodcastRepositorie(client.dio).find(id),
+              future: PodcastRepository(client.dio).find(id),
               builder: (BuildContext context,
                   AsyncSnapshot<List<Episode>> snapshot) {
                 if (snapshot.hasData) {
