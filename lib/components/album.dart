@@ -27,7 +27,7 @@ class AlbumWidget extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (BuildContext context) => RescultAlbum(
+                builder: (BuildContext context) => ResultAlbum(
                       id: id,
                       coverMedium: urlImage,
                       title: title,

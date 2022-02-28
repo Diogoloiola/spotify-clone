@@ -5,16 +5,16 @@ import 'package:spotify_clone/components/header.dart';
 import 'package:spotify_clone/controllers/player_controller.dart';
 import 'package:spotify_clone/helpers/choose_height.dart';
 import 'package:spotify_clone/models/track.dart';
-import 'package:spotify_clone/repositories/album_reposiitory.dart';
+import 'package:spotify_clone/repositories/album_repository.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
-class RescultAlbum extends StatelessWidget {
+class ResultAlbum extends StatelessWidget {
   final String title;
   final String coverMedium;
   final int id;
 
-  const RescultAlbum(
+  const ResultAlbum(
       {Key? key,
       required this.title,
       required this.coverMedium,
