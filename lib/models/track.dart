@@ -12,7 +12,7 @@ class Track {
   String tracklistAlbum = '';
   String message = '';
   String type = '';
-  int code = 0;
+  int code = 200;
 
   Track(
       this.title,

@@ -95,12 +95,12 @@ class _SearchState extends State<Search> {
                     ...tracks.map<Widget>((object) {
                       PlayerController.instance.tracks.add(object);
                       return EpisodeWidget(
-                        urlImage: object.coverMedium,
-                        duration: object.duration,
-                        title: object.title,
-                        preview: object.preview,
-                        index: index++,
-                      );
+                          urlImage: object.coverMedium,
+                          duration: object.duration,
+                          title: object.title,
+                          preview: object.preview,
+                          index: index++,
+                          code: object.code);
                     }).toList()
                   ],
                 ),
@@ -144,56 +144,63 @@ class EpisodeWidget extends StatelessWidget {
   final String title;
   final String preview;
   final int index;
-  const EpisodeWidget({
-    Key? key,
-    required this.urlImage,
-    required this.duration,
-    required this.title,
-    required this.preview,
-    required this.index,
-  }) : super(key: key);
+  final int code;
+  const EpisodeWidget(
+      {Key? key,
+      required this.urlImage,
+      required this.duration,
+      required this.title,
+      required this.preview,
+      required this.index,
+      required this.code})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                urlImage,
-                fit: BoxFit.fill,
-                width: 40,
-                height: 40,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 20),
-              child: Text(
-                title.length > 45 ? title.substring(0, 30) : title,
-                // textDirection: TextDirection.rtl,
-                style: const TextStyle(
-                    color: Colors.white, fontWeight: FontWeight.bold),
-              ),
+      child: code != 200
+          ? const Text(
+              'Algo deu errado, verifique se você digitou o campo corretamente',
+              style: TextStyle(color: Colors.white, fontSize: 20),
             )
-          ]),
-          IconButton(
-              onPressed: () async {
-                await PlayerController.instance.stop();
-                await Future.delayed(const Duration(milliseconds: 7));
-                PlayerController.instance.setImage(urlImage);
-                await PlayerController.instance.play(index);
-              },
-              icon: const Icon(
-                Icons.play_circle,
-                color: Colors.white,
-              ))
-        ],
-      ),
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      urlImage,
+                      fit: BoxFit.fill,
+                      width: 40,
+                      height: 40,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 20),
+                    child: Text(
+                      title.length > 45 ? title.substring(0, 30) : title,
+                      // textDirection: TextDirection.rtl,
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ]),
+                IconButton(
+                    onPressed: () async {
+                      await PlayerController.instance.stop();
+                      await Future.delayed(const Duration(milliseconds: 7));
+                      PlayerController.instance.setImage(urlImage);
+                      await PlayerController.instance.play(index);
+                    },
+                    icon: const Icon(
+                      Icons.play_circle,
+                      color: Colors.white,
+                    ))
+              ],
+            ),
     );
   }
 }
