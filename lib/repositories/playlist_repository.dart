@@ -2,10 +2,10 @@ import '../models/playlist.dart';
 import '../models/track.dart';
 import 'package:dio/dio.dart';
 
-class PlaylistRepositorie {
+class PlaylistRepository {
   late final Dio _client;
 
-  PlaylistRepositorie(this._client);
+  PlaylistRepository(this._client);
 
   Future<Playlist> find(id) async {
     final Response response = await _client.get("/playlist/$id");

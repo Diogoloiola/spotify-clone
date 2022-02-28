@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_clone/models/podcast.dart';
+import 'package:spotify_clone/screens/result_podcast.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class PodcastWidget extends StatelessWidget {
@@ -24,8 +24,14 @@ class PodcastWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed('/result_podcast',
-              arguments: Podcast.arguments(title, urlImage, id));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => ResultPodcast(
+                        id: id,
+                        pictureMedium: urlImage,
+                        title: title,
+                      )));
         },
         child: Container(
           width: width,
@@ -45,7 +51,7 @@ class PodcastWidget extends StatelessWidget {
                     height: 150,
                   )),
               Text(
-                title,
+                title.length > 10 ? "${title.substring(0, 14)}..." : title,
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,

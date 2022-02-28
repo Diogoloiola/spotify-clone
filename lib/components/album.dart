@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_clone/models/album.dart';
+import 'package:spotify_clone/screens/result_album.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class AlbumWidget extends StatelessWidget {
@@ -24,8 +24,14 @@ class AlbumWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed('/result_album',
-            arguments: Album.arguments(title, urlImage, id));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => ResultAlbum(
+                      id: id,
+                      coverMedium: urlImage,
+                      title: title,
+                    )));
       },
       child: Container(
         width: width,
@@ -44,7 +50,7 @@ class AlbumWidget extends StatelessWidget {
                   height: 150,
                 )),
             Text(
-              title.length > 20 ? title.substring(0, 16) : title,
+              title.length > 20 ? "${title.substring(0, 16)}..." : title,
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 15,

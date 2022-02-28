@@ -5,10 +5,10 @@ import '../models/podcast.dart';
 import '../models/playlist.dart';
 import '../models/artist.dart';
 
-class ChartRepositorie {
+class ChartRepository {
   late final Dio _client;
 
-  ChartRepositorie(this._client);
+  ChartRepository(this._client);
 
   Future<List<Track>> tracks() async {
     final Response response = await _client.get('chart/track/');

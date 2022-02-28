@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_clone/screens/result_album.dart';
-import 'package:spotify_clone/screens/result_playlist.dart';
-import 'package:spotify_clone/screens/result_podcast.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'home_page.dart';
 
@@ -16,13 +13,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const MyHomePage(),
-        '/result_podcast': (context) => const ResultPodcast(),
-        '/result_playlist': (context) => const ResultPlayList(),
-        '/result_album': (context) => const RescultAlbum(),
-      },
+      home: const MyHomePage(),
       builder: EasyLoading.init(),
     );
   }

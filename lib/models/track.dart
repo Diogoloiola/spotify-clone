@@ -12,7 +12,7 @@ class Track {
   String tracklistAlbum = '';
   String message = '';
   String type = '';
-  int code = 0;
+  int code = 200;
 
   Track(
       this.title,
@@ -47,6 +47,8 @@ class Track {
       : code = json['code'],
         message = json['message'],
         type = json['type'];
+
+  Track.track(this.title, this.coverMedium, this.preview);
 
   static List<Track> jsonToList(data) {
     return data.map<Track>((map) => Track.fromJson(map)).toList();

@@ -2,20 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:spotify_clone/components/header.dart';
-import 'package:spotify_clone/models/album.dart';
+import 'package:spotify_clone/controllers/player_controller.dart';
+import 'package:spotify_clone/helpers/choose_height.dart';
 import 'package:spotify_clone/models/track.dart';
-import 'package:spotify_clone/repositories/album_repositorire.dart';
+import 'package:spotify_clone/repositories/album_repository.dart';
 import 'package:spotify_clone/repositories/resource.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
-class RescultAlbum extends StatelessWidget {
-  const RescultAlbum({Key? key}) : super(key: key);
+class ResultAlbum extends StatelessWidget {
+  final String title;
+  final String coverMedium;
+  final int id;
+
+  const ResultAlbum(
+      {Key? key,
+      required this.title,
+      required this.coverMedium,
+      required this.id})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Resource client = Resource('https://api.deezer.com/', {});
-    final args = ModalRoute.of(context)!.settings.arguments as Album;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
 
+    int index = 0;
     return Scaffold(
       appBar:
           AppBar(backgroundColor: ColorPalette.darkSecondary, actions: const [
@@ -29,34 +41,42 @@ class RescultAlbum extends StatelessWidget {
         ),
       ]),
       body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        color: ColorPalette.darkItermediare,
+        width: width,
+        height: height,
+        color: ColorPalette.darkIntermediate,
         child: Column(
           children: [
             Header(
-              title: args.title,
-              urlImage: args.coverMedium,
+              title: title,
+              urlImage: coverMedium,
               titleButton: 'Reproduzir',
             ),
             FutureBuilder(
-              future: AlbumRepositorie(client.dio).tracks(args.id),
+              future: AlbumRepository(client.dio).tracks(id),
               builder:
                   (BuildContext context, AsyncSnapshot<List<Track>> snapshot) {
                 if (snapshot.hasData) {
                   EasyLoading.dismiss();
+                  index = 0;
                   return Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.5,
+                    width: width,
+                    height: chooseHeight(PlayerController.instance.isPlaying,
+                        [height * 0.34, height * 0.40]),
                     margin: const EdgeInsets.only(top: 20),
                     child: ListView(
                       children: [
                         ...snapshot.data!.map<Widget>((object) {
+                          if (!PlayerController.instance.isPlaying ||
+                              PlayerController.instance.tracks.isEmpty) {
+                            PlayerController.instance.tracks.add(object);
+                          }
                           return EpisodeWidget(
-                            urlImage: args.coverMedium,
-                            duration: object.duration,
-                            title: object.title,
-                          );
+                              urlImage: coverMedium,
+                              duration: object.duration,
+                              title: object.title,
+                              preview: object.preview,
+                              index: index++,
+                              idPlayList: id);
                         }).toList()
                       ],
                     ),
@@ -77,12 +97,18 @@ class EpisodeWidget extends StatelessWidget {
   final String urlImage;
   final int duration;
   final String title;
-  const EpisodeWidget({
-    Key? key,
-    required this.urlImage,
-    required this.duration,
-    required this.title,
-  }) : super(key: key);
+  final String preview;
+  final int index;
+  final int idPlayList;
+  const EpisodeWidget(
+      {Key? key,
+      required this.urlImage,
+      required this.duration,
+      required this.title,
+      required this.preview,
+      required this.index,
+      required this.idPlayList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -112,10 +138,23 @@ class EpisodeWidget extends StatelessWidget {
               ),
             )
           ]),
-          const Icon(
-            Icons.play_circle,
-            color: Colors.white,
-          )
+          IconButton(
+              onPressed: () async {
+                if (PlayerController.instance.coverMedium != urlImage) {
+                  await PlayerController.instance.stop();
+                  Resource client = Resource('https://api.deezer.com/', {});
+                  PlayerController.instance.tracks =
+                      await AlbumRepository(client.dio).tracks(idPlayList);
+                }
+                await PlayerController.instance.stop();
+                await Future.delayed(const Duration(milliseconds: 7));
+                PlayerController.instance.setImage(urlImage);
+                await PlayerController.instance.play(index);
+              },
+              icon: const Icon(
+                Icons.play_circle,
+                color: Colors.white,
+              ))
         ],
       ),
     );

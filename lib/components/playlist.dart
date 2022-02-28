@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotify_clone/models/playlist.dart';
+import 'package:spotify_clone/screens/result_playlist.dart';
 import 'package:spotify_clone/theme/colors.dart';
 
 class PlayListWidget extends StatelessWidget {
@@ -23,8 +23,14 @@ class PlayListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed('/result_playlist',
-              arguments: Playlist.arguments(title, coverMedium, id));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (BuildContext context) => ResultPlayList(
+                        id: id,
+                        pictureMedium: coverMedium,
+                        title: title,
+                      )));
         },
         child: Container(
           width: width,
