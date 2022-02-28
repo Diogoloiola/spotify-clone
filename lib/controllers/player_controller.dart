@@ -3,14 +3,12 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:spotify_clone/models/track.dart';
 
 class PlayerController extends ChangeNotifier {
-  int maxduration = 100;
-  int currentpos = 0;
   int currentIndex = 0;
-  String currentpostlabel = '00:00';
+  String label = '00:00';
   String coverMedium = '';
   List<Track> tracks = [];
-  bool isplaying = false;
-  bool audioplayed = false;
+  bool isPlaying = false;
+  bool audioPlayed = false;
   bool isCollapse = false;
   AudioPlayer player = AudioPlayer();
 
@@ -19,25 +17,24 @@ class PlayerController extends ChangeNotifier {
   stop() async {
     int result = await player.stop();
     if (result == 1) {
-      isplaying = false;
-      audioplayed = false;
-      currentpos = 0;
+      isPlaying = false;
+      audioPlayed = false;
       coverMedium = '';
       notifyListeners();
     }
   }
 
   pause() async {
-    if (audioplayed) {
+    if (audioPlayed) {
       await player.pause();
     } else {
       await player.resume();
     }
-    audioplayed = !audioplayed;
+    audioPlayed = !audioPlayed;
     notifyListeners();
   }
 
-  collpase() {
+  collapse() {
     isCollapse = !isCollapse;
     notifyListeners();
   }
@@ -47,31 +44,17 @@ class PlayerController extends ChangeNotifier {
     if (preview.isNotEmpty) {
       int result = await player.play(preview);
       if (result == 1) {
-        isplaying = true;
-        audioplayed = true;
-        currentpos = index;
+        isPlaying = true;
+        audioPlayed = true;
         currentIndex = index;
         notifyListeners();
-      } else {
-        print('Deu errado');
       }
     }
-  }
-
-  setCurrentpos(int currentpos) {
-    this.currentpos = currentpos;
-    notifyListeners();
-  }
-
-  setnovo() {
-    isplaying = !isplaying;
-    notifyListeners();
   }
 
   setImage(String coverMedium) {
     this.coverMedium = '';
     this.coverMedium = coverMedium;
-    print('Troquei a img');
     notifyListeners();
   }
 }

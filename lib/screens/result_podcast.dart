@@ -43,7 +43,7 @@ class ResultPodcast extends StatelessWidget {
       body: Container(
         width: width,
         height: height,
-        color: ColorPalette.darkItermediare,
+        color: ColorPalette.darkIntermediate,
         child: Column(
           children: [
             Header(
@@ -60,7 +60,7 @@ class ResultPodcast extends StatelessWidget {
                     EasyLoading.dismiss();
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      height: chooseHeight(PlayerController.instance.isplaying,
+                      height: chooseHeight(PlayerController.instance.isPlaying,
                           [height * 0.34, height * 0.40]),
                       margin: const EdgeInsets.only(top: 20),
                       child: ListView(

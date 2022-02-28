@@ -50,7 +50,7 @@ class AlbumWidget extends StatelessWidget {
                   height: 150,
                 )),
             Text(
-              title.length > 20 ? title.substring(0, 16) : title,
+              title.length > 20 ? "${title.substring(0, 16)}..." : title,
               style: const TextStyle(
                   color: Colors.white,
                   fontSize: 15,

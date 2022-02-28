@@ -42,7 +42,7 @@ class ResultPlayList extends StatelessWidget {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: ColorPalette.darkItermediare,
+        color: ColorPalette.darkIntermediate,
         child: Column(
           children: [
             Header(
@@ -59,7 +59,7 @@ class ResultPlayList extends StatelessWidget {
                   i = 0;
                   return Container(
                     width: width,
-                    height: chooseHeight(PlayerController.instance.isplaying,
+                    height: chooseHeight(PlayerController.instance.isPlaying,
                         [height * 0.38, height * 0.44]),
                     margin: const EdgeInsets.only(top: 20),
                     child: ListView(

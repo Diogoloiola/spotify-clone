@@ -65,13 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 bottomNavigationBar: BottomAppBar(
                   child: Container(
-                    height: PlayerController.instance.isplaying
+                    height: PlayerController.instance.isPlaying
                         ? chooseHeight(PlayerController.instance.isCollapse,
                             [900.0, 100.0])
                         : 50,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
-                      color: ColorPalette.darkItermediare,
+                      color: ColorPalette.darkIntermediate,
                     ),
                     child: Column(
                       children: [_player(), _bottomNavigation()],
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _player() {
-    if (PlayerController.instance.isplaying) {
+    if (PlayerController.instance.isPlaying) {
       return Player(type: PlayerController.instance.isCollapse ? 2 : 1);
     }
     return const SizedBox();
@@ -193,7 +193,7 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(choseMessage(0)),
-        backgroundColor: ColorPalette.darkItermediare,
+        backgroundColor: ColorPalette.darkIntermediate,
         actions: const [
           IconButton(
             icon: FaIcon(
@@ -225,7 +225,7 @@ class Home extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.all(10),
-          color: ColorPalette.darkItermediare,
+          color: ColorPalette.darkIntermediate,
           child: FutureBuilder(
             future: ChartRepository(client.dio).all(),
             builder: (BuildContext context,

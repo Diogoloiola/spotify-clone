@@ -29,14 +29,14 @@ class _SearchState extends State<Search> {
     return Scaffold(
       appBar: AppBar(
         title: Text(choseMessage(1)),
-        backgroundColor: ColorPalette.darkItermediare,
+        backgroundColor: ColorPalette.darkIntermediate,
       ),
       body: SingleChildScrollView(
         child: Container(
           width: width,
           height: height,
           padding: const EdgeInsets.all(10),
-          color: ColorPalette.darkItermediare,
+          color: ColorPalette.darkIntermediate,
           child: Column(
             children: [
               Form(
@@ -58,13 +58,13 @@ class _SearchState extends State<Search> {
                       ),
                       prefixIcon: const Icon(
                         Icons.search,
-                        color: ColorPalette.darkItermediare,
+                        color: ColorPalette.darkIntermediate,
                       ),
                       fillColor: ColorPalette.darkSecondary,
                       filled: true,
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
-                            color: ColorPalette.darkItermediare, width: 2.0),
+                            color: ColorPalette.darkIntermediate, width: 2.0),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                     ),

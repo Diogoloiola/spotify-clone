@@ -13,8 +13,8 @@ class Player extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return SizedBox(
-      width: PlayerController.instance.isplaying ? double.infinity : 0,
-      height: PlayerController.instance.isplaying
+      width: PlayerController.instance.isPlaying ? double.infinity : 0,
+      height: PlayerController.instance.isPlaying
           ? chooseHeight(
               PlayerController.instance.isCollapse, [height * .92, 50.0])
           : 0,
@@ -37,7 +37,7 @@ class _PlayerOneState extends State<PlayerOne> {
         .instance.tracks[PlayerController.instance.currentIndex].title;
     return GestureDetector(
       onTap: () {
-        PlayerController.instance.collpase();
+        PlayerController.instance.collapse();
       },
       child: Container(
         color: ColorPalette.darkSecondary,
@@ -47,7 +47,7 @@ class _PlayerOneState extends State<PlayerOne> {
           children: [
             Row(
               children: [
-                _contanierImage(),
+                _containerImage(),
                 Container(
                   margin: const EdgeInsets.only(left: 20),
                   child: Text(
@@ -64,7 +64,7 @@ class _PlayerOneState extends State<PlayerOne> {
                   setState(() {});
                 },
                 icon: Icon(
-                  PlayerController.instance.audioplayed
+                  PlayerController.instance.audioPlayed
                       ? Icons.pause
                       : Icons.play_circle,
                   color: Colors.white,
@@ -75,7 +75,7 @@ class _PlayerOneState extends State<PlayerOne> {
     );
   }
 
-  Widget _contanierImage() {
+  Widget _containerImage() {
     if (PlayerController.instance.coverMedium == '') {
       return Container(
         width: 40,
@@ -143,7 +143,7 @@ class _PlayerTwoState extends State<PlayerTwo>
                   ),
                 ),
               ),
-              const PlayerControlls()
+              const Controls()
             ],
           );
         },
@@ -152,14 +152,14 @@ class _PlayerTwoState extends State<PlayerTwo>
   }
 }
 
-class PlayerControlls extends StatefulWidget {
-  const PlayerControlls({Key? key}) : super(key: key);
+class Controls extends StatefulWidget {
+  const Controls({Key? key}) : super(key: key);
 
   @override
-  _PlayerControllsState createState() => _PlayerControllsState();
+  _ControlsState createState() => _ControlsState();
 }
 
-class _PlayerControllsState extends State<PlayerControlls> {
+class _ControlsState extends State<Controls> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -228,7 +228,7 @@ class _PlayerControllsState extends State<PlayerControlls> {
                         setState(() {});
                       },
                       icon: Icon(
-                        PlayerController.instance.audioplayed
+                        PlayerController.instance.audioPlayed
                             ? Icons.pause
                             : Icons.play_arrow,
                         size: 40,
@@ -273,7 +273,7 @@ class Header extends StatelessWidget {
           ),
           TextButton(
               onPressed: () {
-                PlayerController.instance.collpase();
+                PlayerController.instance.collapse();
               },
               child: const Icon(
                 Icons.arrow_drop_down,
