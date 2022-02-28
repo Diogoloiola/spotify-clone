@@ -70,20 +70,20 @@ Para executar o projeto em sua máquina você deve ter determinados programas in
 
 ### Home
 
-<img src="assets/images/home.png">
+<img src="assets/images/home.png" width="200">
 
 ### Podcast
 
-<img src="assets/images/podcast.png">
+<img src="assets/images/podcast.png" width="200">
 
 ### Album
 
-<img src="assets/images/album.png">
+<img src="assets/images/album.png" width="200">
 
 ### Playlist
 
-<img src="assets/images/playlist.png">
+<img src="assets/images/playlist.png" width="200">
 
 ### Pesquisa
 
-<img src="assets/images/search.png">
+<img src="assets/images/search.png" width="200">
