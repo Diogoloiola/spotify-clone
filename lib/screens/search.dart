@@ -181,7 +181,9 @@ class EpisodeWidget extends StatelessWidget {
                   Container(
                     margin: const EdgeInsets.only(left: 20),
                     child: Text(
-                      title.length > 45 ? title.substring(0, 30) : title,
+                      title.length > 30
+                          ? "${title.substring(0, 30)}..."
+                          : title,
                       // textDirection: TextDirection.rtl,
                       style: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
