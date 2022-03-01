@@ -51,7 +51,7 @@ class PodcastWidget extends StatelessWidget {
                     height: 150,
                   )),
               Text(
-                title.length > 10 ? "${title.substring(0, 14)}..." : title,
+                title.length > 10 ? "${title.substring(0, 10)}..." : title,
                 style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
